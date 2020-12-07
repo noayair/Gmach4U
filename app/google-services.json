@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "50794303262",
+    "firebase_url": "https://gmach4u-280d6.firebaseio.com",
+    "project_id": "gmach4u-280d6",
+    "storage_bucket": "gmach4u-280d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50794303262:android:d6f7ea5e11b42d47d8030f",
+        "android_client_info": {
+          "package_name": "com.example.gmach4u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50794303262-gp1phhdn8f06ho9d0vqua1atcgvlsgnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtJpf_JKmSJudOgRpvrRDQ0bpxnerh2VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50794303262-gp1phhdn8f06ho9d0vqua1atcgvlsgnv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

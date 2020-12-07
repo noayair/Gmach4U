@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.gmach4u">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Gmach4U">
+        <activity android:name="Activities.Product"></activity>
+        <activity android:name="Activities.SearchHistory" />
+        <activity android:name="Activities.GmachStockSupplier" />
+        <activity android:name="Activities.GmachCustomers" />
+        <activity android:name="Activities.Chat" />
+        <activity android:name="Activities.GmachStockClient" />
+        <activity android:name="Activities.GmachDetails" />
+        <activity android:name="Activities.SearchResults" />
+        <activity android:name="Activities.PrivateZone" />
+        <activity android:name="Activities.MainSupplier" />
+        <activity android:name="Activities.SupplierRegister" />
+        <activity android:name="Activities.ClientRegister" /> <!-- <activity android:name=".clientRegister" /> -->
+        <activity android:name="Activities.MainActivity" />
+        <activity android:name="Activities.loginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
