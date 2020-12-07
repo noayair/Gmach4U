@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <resources>
+    <array name="categoriesArray">
+
+    <item>Search by category</item>
+
+    <item>Wedding dresses</item>
+
+    <item>Instruments</item>
+
+    <item>Medical Equipment</item>
+
+    <item>Other</item>
+
+</array>
+
+</resources>
