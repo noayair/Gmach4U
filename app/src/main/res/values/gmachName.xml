@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="namesArray">
+        <item>Search by name</item>
+        <item>Kashoshana</item>
+        <item>Bat melech</item>
+        <item>Jerusalem</item>
+    </array>
+</resources>
