@@ -52,7 +52,7 @@
         android:id="@+id/search_by_category_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose"
+        android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -77,7 +77,7 @@
         android:id="@+id/search_by_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose"
+        android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -97,29 +97,32 @@
         app:layout_constraintTop_toBottomOf="@+id/mainActivity_location_spinner"
         app:layout_constraintVertical_bias="0.121" />
 
-    <TextView
-        android:id="@+id/mainActivity_search_by_name"
-        android:layout_width="407dp"
-        android:layout_height="22dp"
-        android:text="search by name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/output_box2"
-        app:layout_constraintVertical_bias="0.096" />
-
     <Button
         android:id="@+id/search_by_name_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:text="Button"
+        android:layout_marginTop="37dp"
+        android:layout_marginBottom="240dp"
+        android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainActivity_search_by_name"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_name_spinner"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/mainActivity_name_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_by_location_button"
+        app:layout_constraintVertical_bias="0.087" />
+
 
     <!--    <Button-->
     <!--        android:id="@+id/mainActivity_btnLogout"-->
@@ -133,5 +136,12 @@
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:layout_constraintVertical_bias="0.011" />-->
 
+
+<!--    <ListView-->
+<!--        android:id="@+id/myListView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--    </ListView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
