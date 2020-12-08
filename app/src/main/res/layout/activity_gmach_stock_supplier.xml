@@ -15,10 +15,10 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <Button
         android:id="@+id/AddProduct"
@@ -35,5 +35,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MyProducts" />
+
+    <TextView
+        android:id="@+id/BaseText"
+        android:layout_width="188dp"
+        android:layout_height="208dp"
+        android:fontFamily="@font/architects_daughter"
+        android:paddingLeft="150px"
+        android:paddingTop="200px"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/AddProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MyProducts"
+        app:layout_constraintVertical_bias="0.353" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

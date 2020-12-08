@@ -8,71 +8,81 @@
 
     <ImageView
         android:id="@+id/ProductImage"
-        android:layout_width="197dp"
-        android:layout_height="156dp"
+        android:layout_width="137dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084"
+        app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:srcCompat="@color/teal_700" />
 
-    <TextView
-        android:id="@+id/ProductName"
-        android:layout_width="217dp"
-        android:layout_height="48dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="product name"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProductImage"
-        app:layout_constraintVertical_bias="0.077" />
-
-    <TextView
-        android:id="@+id/Description"
-        android:layout_width="158dp"
-        android:layout_height="123dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="Description"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProductName"
-        app:layout_constraintVertical_bias="0.143" />
-
-    <TextView
-        android:id="@+id/UnitsUnStock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/architects_daughter"
-        android:text="Units in Stock"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Description"
-        app:layout_constraintVertical_bias="0.264" />
-
     <Button
-        android:id="@+id/EditProduct"
+        android:id="@+id/AddTheProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="57dp"
+        android:layout_marginBottom="72dp"
         android:fontFamily="@font/architects_daughter"
-        android:text="Edit"
+        android:text="Add"
         android:textColor="#150F0F"
         android:textSize="24sp"
         app:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UnitsUnStock"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintTop_toBottomOf="@+id/UnitsInStock"
+        app:layout_constraintVertical_bias="0.544" />
+
+    <EditText
+        android:id="@+id/ProductName"
+        android:layout_width="257dp"
+        android:layout_height="65dp"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:inputType="textPersonName"
+        android:paddingLeft="80px"
+        android:text="Product Name"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductImage"
+        app:layout_constraintVertical_bias="0.065" />
+
+    <EditText
+        android:id="@+id/ProductDescription"
+        android:layout_width="219dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:text="description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductName"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <EditText
+        android:id="@+id/UnitsInStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:inputType="number"
+        android:paddingLeft="180px"
+        android:text="Units in stack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductDescription"
+        app:layout_constraintVertical_bias="0.17" />
 </androidx.constraintlayout.widget.ConstraintLayout>
