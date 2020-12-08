@@ -18,12 +18,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import Adapters.Client;
+import Adapters.Supplier;
 
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener {
-    Button login,clientRegist,supplierRegist,mainSupplier;
+    Button login,clientRegist,supplierRegist;
     TextView info;
     private EditText userEmail,userPassword;
     FirebaseDatabase mDatabase ;
@@ -31,6 +37,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     FirebaseAuth fireBaseAuth;
     private ProgressDialog progressDialog;
     private int counter=5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +47,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         userPassword= (EditText) findViewById(R.id.password);
         userEmail= (EditText) findViewById(R.id.Email);
 
-        mainSupplier=(Button)findViewById(R.id.MainSupplier);
-        mainSupplier.setOnClickListener(this);
-
         login=(Button)findViewById(R.id.login);
         login.setOnClickListener(this);
 
-        clientRegist=(Button)findViewById(R.id.clientRegist);
+        clientRegist=(Button)findViewById(R.id.haveAccount);
         clientRegist.setOnClickListener(this);
 
         supplierRegist=(Button)findViewById(R.id.supplierRegist);
@@ -71,8 +75,40 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     progressDialog.dismiss();
-                    Toast.makeText(loginActivity.this, "Sign successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(loginActivity.this,MainActivity.class));
+//                    Toast.makeText(loginActivity.this, "Sign successful", Toast.LENGTH_SHORT).show();
+                    dbRootRef=mDatabase.getInstance().getReference();
+                    dbRootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            Intent intent =null;
+
+                            for(DataSnapshot user: snapshot.child("Clients").getChildren()){
+                                String id = user.child("details").getValue(Client.class).getUserId();
+                                if(id.equals(fireBaseAuth.getUid())){
+                                    intent = new Intent(loginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                            for(DataSnapshot user: snapshot.child("Suppliers").getChildren()){
+                                String id = user.child("details").getValue(Supplier.class).getId();
+                                if(id.equals(fireBaseAuth.getUid())){
+                                    intent = new Intent(loginActivity.this, MainSupplier.class);
+                                    startActivity(intent);
+                                }
+                            }
+
+//                            Toast.makeText(loginActivity.this, fireBaseAuth.getUid(), Toast.LENGTH_SHORT).show();
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+
                 } else{
                     Toast.makeText(loginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     counter--;
@@ -96,10 +132,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         }
         if(supplierRegist==v){
             openSupplierRegister();
-        }
-        if(mainSupplier==v){
-            Intent intent = new Intent(this, MainSupplier.class);
-            startActivity(intent);
         }
     }
     public void openLoginClient(){
