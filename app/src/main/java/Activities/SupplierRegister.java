@@ -91,7 +91,8 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
 
     private void writeNewUser(String userId) {
         Supplier user = new Supplier(name, email, phone,address,openingTime,userId);
-        myRef.child("Suppliers").child(Integer.toString(usersCounter++)).child("details").setValue(user);
+        myRef.child("Suppliers").child(Integer.toString(usersCounter)).child("details").setValue(user);
+        usersCounter++;
     }//end write new user
 
     @Override
