@@ -1,15 +1,15 @@
 package Adapters;
 
 public class Client {
-    String name,password,email,phone;
+    String name,userId,email,phone;
 
     public Client() {
 
     }
 
-    public Client(String name, String password, String email, String phone) {
+    public Client(String name, String email, String phone, String userId) {
         this.name = name;
-        this.password = password;
+        this.userId = userId;
         this.email = email;
         this.phone = phone;
     }
@@ -22,12 +22,12 @@ public class Client {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(String password) {
+        this.userId = password;
     }
 
     public String getEmail() {
