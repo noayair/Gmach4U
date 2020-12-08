@@ -127,12 +127,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //**************************Logout&Search button***************************************
+    //**************************Logout & Search & personal profile buttons***************************************
     private void Logout(){
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(MainActivity.this,loginActivity.class));
     }
+
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, PrivateZone.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -185,12 +191,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.main_logoutMenu:{
-                Logout();
-            }
+//        switch (item.getItemId()){
+//            case R.id.main_logoutMenu:
+//                Logout();
+////            case R.id.personal_profile:
+////                openPrivateZone();
+////            default:
+////                return super.onOptionsItemSelected(item);
+//            }
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
         }
         return super.onOptionsItemSelected(item);
-    }
+        }
 }
 

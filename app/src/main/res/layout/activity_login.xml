@@ -99,7 +99,7 @@
 
 
     <Button
-        android:id="@+id/haveAccount"
+        android:id="@+id/LoginRegist"
         android:layout_width="221dp"
         android:layout_height="45dp"
         android:text="Register as client"
@@ -126,4 +126,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.807" />
 
+    <Button
+        android:id="@+id/MainSupplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MainSupplier"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
 </androidx.constraintlayout.widget.ConstraintLayout>
