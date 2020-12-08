@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmach4u.R;
@@ -17,8 +19,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
+import Adapters.ProductItem;
+
 public class GmachStockSupplier extends AppCompatActivity implements View.OnClickListener{
     public static final String EXTRA_POST_KEY = "post_key";
+    private TextView baseText;
     private Button addProd;
     private DatabaseReference userRef;
     FirebaseAuth firebaseAuth;
@@ -36,7 +43,7 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild("products")) {
-                    Toast.makeText(GmachStockSupplier.this, "You dont have a products yet!", Toast.LENGTH_SHORT).show();
+                    baseText.setText("You don't have a products yet!");
                 } else {
                     for(DataSnapshot product: snapshot.child("products").getChildren()){
                         //show products
@@ -49,8 +56,9 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
             }
         });
     }
-
     private void setUIViews(){
+        //set text
+        baseText = (TextView) findViewById(R.id.BaseText);
         //set button
         addProd = (Button) findViewById(R.id.AddProduct);
         addProd.setOnClickListener((View.OnClickListener) this);

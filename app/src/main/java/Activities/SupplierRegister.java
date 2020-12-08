@@ -25,10 +25,9 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     private  EditText userName, userPassword, userEmail,userPhone, userAddress, userOpeningTime;;
     private Button signUpButton,LogInButton;
     private Spinner userCategory;
-    FirebaseAuth firebaseAuth;
-    DatabaseReference myRef;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference myRef;
     String name, email, password, phone, address, openingTime;
-    static int usersCounter =1;
     //test
 
     @Override
@@ -91,8 +90,7 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
 
     private void writeNewUser(String userId) {
         Supplier user = new Supplier(name, email, phone,address,openingTime,userId);
-        myRef.child("Suppliers").child(Integer.toString(usersCounter)).child("details").setValue(user);
-        usersCounter++;
+        myRef.child("Suppliers").child(firebaseAuth.getUid()).child("details").setValue(user);
     }//end write new user
 
     @Override

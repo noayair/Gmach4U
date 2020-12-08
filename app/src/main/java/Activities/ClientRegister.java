@@ -93,7 +93,7 @@ public class ClientRegister extends AppCompatActivity {
         userPassword= (EditText) findViewById(R.id.password1);
         userEmail= (EditText) findViewById(R.id.email1);
         regButton=(Button) findViewById(R.id.submit);
-        HaveAccount=(Button) findViewById(R.id.haveAccount);
+        HaveAccount=(Button) findViewById(R.id.LoginRegist);
         userPhone= (EditText) findViewById(R.id.Phone);
         fireBaseAuth= FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
