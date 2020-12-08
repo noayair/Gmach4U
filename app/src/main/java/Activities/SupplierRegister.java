@@ -16,18 +16,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import Adapters.Supplier;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.widget.Spinner;
 
-public class SupplierRegister extends AppCompatActivity{
+public class SupplierRegister extends AppCompatActivity implements View.OnClickListener{
     private  EditText userName, userPassword, userEmail,userPhone, userAddress, userOpeningTime;;
     private Button regButton;
     private Spinner userCategory;
     FirebaseAuth firebaseAuth;
+    DatabaseReference myRef;
     String name, email, password, phone, address, openingTime;
+    static int usersCounter =1;
     //test
 
     @Override
@@ -35,7 +39,7 @@ public class SupplierRegister extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supplier_register);
         setUIViews();
-        setButton();
+        signUp();
     }//end onCreate
 
     private void setUIViews(){
@@ -47,6 +51,8 @@ public class SupplierRegister extends AppCompatActivity{
         userAddress= (EditText) findViewById(R.id.AddressInput);
         userOpeningTime= (EditText) findViewById(R.id.OpeningTimeInput);
         firebaseAuth= FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference();
+        regButton.setOnClickListener((View.OnClickListener) this);
         //set spinner
         userCategory = (Spinner) findViewById(R.id.CategoryInput);
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
@@ -56,42 +62,43 @@ public class SupplierRegister extends AppCompatActivity{
 
     private boolean validate(){ return true; }
 
-    private void setButton(){
-        regButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validate()){
-                    email=userEmail.getText().toString().trim();
-                    password=userPassword.getText().toString().trim();
+    private void signUp(){
+                if(!validate()) {
+                    return;
+                }
+                email=userEmail.getText().toString().trim();
+                password=userPassword.getText().toString().trim();
 
-                    firebaseAuth.createUserWithEmailAndPassword(email,password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()) {
-                                        sendUserData();
-                                        Toast.makeText(SupplierRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(SupplierRegister.this,MainActivity.class));
-                                    } else{
-                                        Toast.makeText(SupplierRegister.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                                        task.getException();
-                                    }//end else
-                                }//end Oncomplete
-                            });//end email and password
-                }//end if
-            }//end on click
-        });//end click listener
-
+                firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            writeNewUser(task.getResult().getUser().getUid());
+                            Toast.makeText(SupplierRegister.this, "Registration success", Toast.LENGTH_SHORT).show();
+                            // Go to MainActivity
+                            startActivity(new Intent(SupplierRegister.this,MainSupplier.class));
+                            finish();
+                        } else {
+                            Toast.makeText(SupplierRegister.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                        }//end else
+                    }//end On complete
+                });//end create user
     }//end setButton
 
-    private void sendUserData() {
+    private void writeNewUser(String userId) {
         name = userName.getText().toString();
         phone = userPhone.getText().toString();
         address = userAddress.getText().toString();
         openingTime = userOpeningTime.getText().toString();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference();
-        Supplier userProfile = new Supplier(name, email, phone,address,openingTime);
-        myRef.child("Suppliers").push().child("details").setValue(userProfile);
-    }//end sendUserData
+        Supplier user = new Supplier(name, email, phone,address,openingTime,userId);
+
+        myRef.child("Suppliers").child(Integer.toString(usersCounter)).child("details").setValue(user);
+    }//end write new user
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.signUpSupplier) {
+            signUp();
+        }
+    }//end onClick
 }//end class

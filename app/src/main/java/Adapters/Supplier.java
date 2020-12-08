@@ -6,13 +6,15 @@ public class Supplier {
     private String phoneNumber;
     private String address;
     private String openingTime;
+    private String id;
 
-    public Supplier(String name, String email, String phone, String address, String openingTime){
+    public Supplier(String name, String email, String phone, String address, String openingTime, String id){
         this.name = name;
         this.email = email;
         this.phoneNumber = phone;
         this.address = address;
         this.openingTime = openingTime;
+        this.id = id;
     }
 
     public String getName() {
@@ -44,5 +46,8 @@ public class Supplier {
     }
     public void setOpeningTime(String openingTime) {
         this.openingTime = openingTime;
+    }
+    public String getId() {
+        return id;
     }
 }
