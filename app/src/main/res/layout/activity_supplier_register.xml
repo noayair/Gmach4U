@@ -6,7 +6,19 @@
 
     <Button android:layout_height="60dp" android:layout_width="136dp" android:id="@+id/signUpSupplier" app:layout_constraintVertical_bias="0.862" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:text="sign_up" android:fontFamily="@font/alfa_slab_one" app:backgroundTint="#00FFFFFF" android:layout_marginTop="132dp"/>
 
-    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/clientRegist" app:layout_constraintVertical_bias="0.948" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.521" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:textSize="14sp" android:text="have_an_account_sign_in" app:backgroundTint="#00FFFFFF"/>
+    <Button
+        android:id="@+id/LoginRegist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Have an Account? Sign In"
+        android:textSize="14sp"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
     <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/GmachNameInput" app:layout_constraintVertical_bias="0.125" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" tools:text="Enter your gmach name" android:text="Enter your gmach name" android:inputType="textPersonName" android:ems="10" android:autofillHints=""/>
 
@@ -16,7 +28,17 @@
 
     <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/PhoneNumberInput" app:layout_constraintVertical_bias="0.381" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:text="Enter Phone Number" android:inputType="phone" android:ems="10" android:autofillHints="" tools:ignore="MissingConstraints"/>
 
-    <Spinner android:layout_height="41dp" android:layout_width="197dp" android:id="@+id/CategoryInput" app:layout_constraintVertical_bias="0.553" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.467" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" tools:ignore="MissingConstraints"/>
+    <Spinner
+        android:id="@+id/CategoryInput"
+        android:layout_width="244dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567"
+        tools:ignore="MissingConstraints" />
 
     <TextView android:layout_height="33dp" android:layout_width="281dp" android:id="@+id/textView5" app:layout_constraintVertical_bias="0.458" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.569" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:textSize="16sp" android:text="Choose the category of your gmach" android:gravity="center" android:layout_marginTop="18dp" android:textAllCaps="false" android:lineSpacingExtra="10sp"/>
 

@@ -46,7 +46,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         login=(Button)findViewById(R.id.login);
         login.setOnClickListener(this);
 
-        clientRegist=(Button)findViewById(R.id.clientRegist);
+        clientRegist=(Button)findViewById(R.id.LoginRegist);
         clientRegist.setOnClickListener(this);
 
         supplierRegist=(Button)findViewById(R.id.supplierRegist);

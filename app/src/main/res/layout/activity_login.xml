@@ -99,7 +99,7 @@
 
 
     <Button
-        android:id="@+id/clientRegist"
+        android:id="@+id/LoginRegist"
         android:layout_width="221dp"
         android:layout_height="45dp"
         android:text="Register as client"
