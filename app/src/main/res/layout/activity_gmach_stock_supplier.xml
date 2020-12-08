@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context="Activities.GmachStockSupplier">
 
+    <TextView
+        android:id="@+id/MyProducts"
+        android:layout_width="232dp"
+        android:layout_height="72dp"
+        android:fontFamily="@font/architects_daughter"
+        android:text="My Products"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.094" />
+
+    <Button
+        android:id="@+id/AddProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        android:autoText="false"
+        android:background="#00FFFFFF"
+        android:fontFamily="@font/architects_daughter"
+        android:text="+ Add"
+        android:textColor="#121010"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MyProducts" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
