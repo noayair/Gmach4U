@@ -1,54 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activities.GmachStockSupplier">
+    tools:context="Activities.GmachStockSupplier"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/MyProducts"
-        android:layout_width="232dp"
-        android:layout_height="72dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/architects_daughter"
         android:text="My Products"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083" />
+        android:textSize="36sp" />
+
+    <ListView
+        android:id="@+id/ProductsList"
+        android:layout_width="match_parent"
+        android:layout_height="600dp" />
 
     <Button
         android:id="@+id/AddProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:autoText="false"
         android:background="#00FFFFFF"
         android:fontFamily="@font/architects_daughter"
         android:text="+ Add"
         android:textColor="#121010"
-        app:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MyProducts" />
+        android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/BaseText"
-        android:layout_width="188dp"
-        android:layout_height="208dp"
-        android:fontFamily="@font/architects_daughter"
-        android:paddingLeft="150px"
-        android:paddingTop="200px"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/AddProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MyProducts"
-        app:layout_constraintVertical_bias="0.353" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

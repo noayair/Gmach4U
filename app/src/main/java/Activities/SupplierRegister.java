@@ -24,10 +24,10 @@ import android.widget.Spinner;
 public class SupplierRegister extends AppCompatActivity implements View.OnClickListener{
     private  EditText userName, userPassword, userEmail,userPhone, userAddress, userOpeningTime;;
     private Button signUpButton,LogInButton;
-    private Spinner userCategory;
+    private Spinner userCategory, userLocation;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference myRef;
-    String name, email, password, phone, address, openingTime;
+    String name, email, password, phone,category, location, address, openingTime;
     //test
 
     @Override
@@ -58,6 +58,10 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
         userCategory.setAdapter(categoriesAdapter);
 
+        userLocation = (Spinner) findViewById(R.id.LocationInput);
+        ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
+        userLocation.setAdapter(locationsAdapter);
+
     }//end setUIViews
 
     private void signUp(){
@@ -68,6 +72,8 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         openingTime = userOpeningTime.getText().toString();
         email=userEmail.getText().toString().trim();
         password=userPassword.getText().toString().trim();
+        location = userLocation.getSelectedItem().toString();
+        category = userCategory.getSelectedItem().toString();
 
         if(!validate()) {
             return;
@@ -89,8 +95,8 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     }//end setButton
 
     private void writeNewUser(String userId) {
-        Supplier user = new Supplier(name, email, phone,address,openingTime,userId);
-        myRef.child("Suppliers").child(firebaseAuth.getUid()).child("details").setValue(user);
+        Supplier user = new Supplier(name, email, phone,address,openingTime,category,location);
+        myRef.child("Suppliers").child(user.getId()).child("details").setValue(user);
     }//end write new user
 
     @Override
@@ -125,6 +131,10 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         else if(userCategory.getSelectedItem().toString().equals("Search by category")){
             //Toast.makeText(this, "Please select category", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Please select catagory", Toast.LENGTH_SHORT).show();
+        }
+        else if(userLocation.getSelectedItem().toString().equals("Search by location")){
+            //Toast.makeText(this, "Please select category", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select location", Toast.LENGTH_SHORT).show();
         }
 
         else{

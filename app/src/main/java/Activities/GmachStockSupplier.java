@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +27,7 @@ import java.util.HashMap;
 import Adapters.ProductItem;
 
 public class GmachStockSupplier extends AppCompatActivity implements View.OnClickListener{
-    public static final String EXTRA_POST_KEY = "post_key";
-    private TextView baseText;
+    private ListView listView;
     private Button addProd;
     private DatabaseReference userRef;
     FirebaseAuth firebaseAuth;
@@ -43,7 +45,7 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild("products")) {
-                    baseText.setText("You don't have a products yet!");
+
                 } else {
                     for(DataSnapshot product: snapshot.child("products").getChildren()){
                         //show products
@@ -58,7 +60,7 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
     }
     private void setUIViews(){
         //set text
-        baseText = (TextView) findViewById(R.id.BaseText);
+        listView = (ListView) findViewById(R.id.ProductsList);
         //set button
         addProd = (Button) findViewById(R.id.AddProduct);
         addProd.setOnClickListener((View.OnClickListener) this);
@@ -66,6 +68,14 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
         firebaseAuth= FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference()
                 .child("Suppliers").child(firebaseAuth.getUid());
+        //set adapter
+//        String[] sports = {"soccer","football"};
+//        ArrayAdapter<String> SA = new ArrayAdapter<String>(
+//                GmachStockSupplier.this,
+//                android.R.layout.simple_list_item_1,
+//                sports);
+//        setContentView(listView);
+//        listView.setAdapter(SA);
 
     }
     public void onClick(View v) {
