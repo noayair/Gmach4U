@@ -3,13 +3,18 @@ package Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -19,55 +24,40 @@ import android.widget.Toast;
 
 import com.example.gmach4u.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    /** Called when the activity is first created. */
+
     private Spinner categorySelectSpinner;
     private Spinner locationSelectSpinner;
-    private Spinner nameSelectSpinner;
-    private Button search_by_category_Button;
     private Button search_by_location_Button;
-    private Button search_by_name_Button;
-    private Button Logout;
     FirebaseAuth firebaseAuth;
     ListView listView;
-    String[] nameList = {};
     ArrayAdapter<String> adapter1;
+
+    DatabaseReference myRef;
+    private AutoCompleteTextView txtSearch;
+    private ListView listData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        listView = (ListView)findViewById(R.id.myListView);
-//
-//        adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nameList);
-//        listView.setAdapter(adapter1);
-
-
-//        Logout = (Button)findViewById(R.id.mainActivity_btnLogout);
-//        Logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Logout();
-//            }
-//        });
         firebaseAuth=FirebaseAuth.getInstance();
 
 //      ***************************SEARCH BY CATEGORY*************************************
         categorySelectSpinner = (Spinner) findViewById(R.id.mainActivity_category_spinner);
-//        textBox1 = (TextView)findViewById(R.id.output_box);
-        search_by_category_Button = (Button)findViewById(R.id.search_by_category_button);
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
         categoriesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categorySelectSpinner.setAdapter(categoriesAdapter);
-        search_by_category_Button.setOnClickListener(new View.OnClickListener(){
-            public  void onClick(View view){
-                String selectedGmach = getResources().getStringArray(R.array.categoriesArray)[categorySelectSpinner.getSelectedItemPosition()];
-//                textBox1.setText("Selected category is: " + selectedGmach);
-                openCategorySearch();
-            }
-        });
 
 
 
@@ -76,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         //************************SEARCH BY LOCATION**************************************
         locationSelectSpinner = (Spinner) findViewById(R.id.mainActivity_location_spinner);
-//        textBox2 = (TextView)findViewById(R.id.output_box2);
-        search_by_location_Button = (Button)findViewById(R.id.search_by_location_button);
+        search_by_location_Button = (Button)findViewById(R.id.search_button);
         ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
         locationsAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -85,47 +74,168 @@ public class MainActivity extends AppCompatActivity {
         search_by_location_Button.setOnClickListener(new View.OnClickListener(){
             public  void onClick(View view){
                 String selectedLocation = getResources().getStringArray(R.array.locationsArray)[locationSelectSpinner.getSelectedItemPosition()];
-//                textBox1.setText("Selected category is: " + selectedLocation);
-                openLocationSearch();
+                openSearchButton();
             }
         });
-
-
-        //************************SEARCH BY NAME**************************************
-        nameSelectSpinner = (Spinner) findViewById(R.id.mainActivity_name_spinner);
-//        textBox1 = (TextView)findViewById(R.id.output_box);
-        search_by_name_Button = (Button)findViewById(R.id.search_by_name_button);
-        ArrayAdapter<String> namesAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.namesArray));
-        namesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        nameSelectSpinner.setAdapter(namesAdapter);
-        search_by_name_Button.setOnClickListener(new View.OnClickListener(){
-            public  void onClick(View view){
-                String selectedName = getResources().getStringArray(R.array.namesArray)[nameSelectSpinner.getSelectedItemPosition()];
-//                textBox1.setText("Selected category is: " + selectedGmach);
-                openNameSearch();
-            }
-        });
-
-
-
     }
 
-    public void openCategorySearch(){
+
+
+    //from youtube
+
+//    private void populateSearch() {
+//        ValueEventListener eventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()){
+//                    ArrayList<String> names = new ArrayList<>();
+//                    for(DataSnapshot ds : snapshot.getChildren()){
+//                        String n = ds.child("name").getValue(String.class);
+//                        names.add(n);
+//                    }
+//                    ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, names);
+//                    txtSearch.setAdapter(adapter);
+//                    txtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            String selection = parent.getItemAtPosition(position).toString();
+//                            getUsers(position);
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        };
+//        myRef.addListenerForSingleValueEvent(eventListener);
+//    }
+
+//    private void getUsers(int selection) {
+//        Query query = myRef.orderByChild("name").equalTo(selection);
+//        ValueEventListener eventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()){
+//                    ArrayList<UserInfo> userInfos = new ArrayList<>();
+//                    for(DataSnapshot ds : snapshot.getChildren()){
+//                        UserInfo userInfo = new UserInfo(ds.child("name").getValue(String.class)
+//                        , ds.child("category").getValue(String.class)
+//                        , ds.child("location").getValue(String.class));
+//                        userInfos.add(userInfo);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        };
+//        query.addListenerForSingleValueEvent(eventListener);
+//    }
+//
+//    class UserInfo{
+//        public String name;
+//        public String category;
+//        public String location;
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public void setName(String name) {
+//            this.name = name;
+//        }
+//
+//        public String getCategory() {
+//            return category;
+//        }
+//
+//        public void setCategory(String category) {
+//            this.category = category;
+//        }
+//
+//        public String getLocation() {
+//            return location;
+//        }
+//
+//        public void setLocation(String location) {
+//            this.location = location;
+//        }
+//
+//        public UserInfo(String name, String category, String location) {
+//            this.name = name;
+//            this.category = category;
+//            this.location = location;
+//        }
+//    }
+//
+//
+//    public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+//
+//        private ArrayList<UserInfo> localDataSet;
+//
+//        /**
+//         * Provide a reference to the type of views that you are using
+//         * (custom ViewHolder).
+//         */
+//        public static class ViewHolder extends RecyclerView.ViewHolder {
+//            private final TextView textView;
+//
+//            public ViewHolder(View view) {
+//                super(view);
+//                // Define click listener for the ViewHolder's View
+//
+//                textView = (TextView) view.findViewById(R.id.textView);
+//            }
+//
+//            public TextView getTextView() {
+//                return textView;
+//            }
+//        }
+//
+//        /**
+//         * Initialize the dataset of the Adapter.
+//         *
+//         * @param dataSet String[] containing the data to populate views to be used
+//         * by RecyclerView.
+//         */
+//        public CustomAdapter(ArrayList<UserInfo> dataSet) {
+//            this.localDataSet = dataSet;
+//        }
+//
+//        // Create new views (invoked by the layout manager)
+//        @Override
+//        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+//            LayoutInflater layoutInflater = LayoutInflater.from(getParent().getBaseContext());
+//            View view = LayoutInflater.inflate(R.layout.row_style, getParent(), false);
+//        }
+//
+//        // Replace the contents of a view (invoked by the layout manager)
+//        @Override
+//        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+//
+//            // Get element from your dataset at this position and replace the
+//            // contents of the view with that element
+//            viewHolder.getTextView().setText(localDataSet[position]);
+//        }
+//
+//        // Return the size of your dataset (invoked by the layout manager)
+//        @Override
+//        public int getItemCount() {
+//            return localDataSet.length;
+//        }
+//    }
+
+
+
+    public void openSearchButton(){
         Intent intent = new Intent(this, SearchResults.class);
         startActivity(intent);
     }
-
-    public void openLocationSearch(){
-        Intent intent = new Intent(this, SearchResults.class);
-        startActivity(intent);
-    }
-
-    public void openNameSearch(){
-        Intent intent = new Intent(this, SearchResults.class);
-        startActivity(intent);
-    }
-
 
     //**************************Logout & Search & personal profile buttons***************************************
     private void Logout(){
@@ -146,59 +256,21 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setQueryHint("Type here to search");
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adapter1.getFilter().filter(newText);
-//                return true;
-//            }
-//        });
-
-//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem item) {
-//                Toast.makeText(MainActivity.this, "Search is expanded", Toast.LENGTH_SHORT);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem item) {
-//                Toast.makeText(MainActivity.this, "Search is collapse", Toast.LENGTH_SHORT);
-//                return false;
-//            }
-//        };
-//        menu.findItem(R.id.main_searchMenu).setOnActionExpandListener(onActionExpandListener);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.main_searchMenu).getActionView();
-//        searchView.setQueryHint("Search Gnach here");
         return true;
     }
 
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
-            public boolean onQueryTextChange(String newText) {
-                adapter1.getFilter().filter(newText);
-                return true;
-            }
+    public boolean onQueryTextChange(String newText) {
+        adapter1.getFilter().filter(newText);
+        return true;
+    }
 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.main_logoutMenu:
-//                Logout();
-////            case R.id.personal_profile:
-////                openPrivateZone();
-////            default:
-////                return super.onOptionsItemSelected(item);
-//            }
         if(item.getItemId() == R.id.main_logoutMenu){
             Logout();
         }
@@ -206,6 +278,5 @@ public class MainActivity extends AppCompatActivity {
             openPrivateZone();
         }
         return super.onOptionsItemSelected(item);
-        }
+    }
 }
-
