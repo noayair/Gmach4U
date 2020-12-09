@@ -29,7 +29,7 @@ import Adapters.Supplier;
 
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener {
-    Button login,clientRegist,supplierRegist;
+    Button login,clientRegist,supplierRegist,pp;
     TextView info;
     private EditText userEmail,userPassword;
     FirebaseDatabase mDatabase ;
@@ -47,10 +47,13 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         userPassword= (EditText) findViewById(R.id.password);
         userEmail= (EditText) findViewById(R.id.Email);
 
+        pp=(Button)findViewById(R.id.pp);
+        pp.setOnClickListener(this);
+
         login=(Button)findViewById(R.id.login);
         login.setOnClickListener(this);
 
-        clientRegist=(Button)findViewById(R.id.LoginRegist);
+        clientRegist=(Button)findViewById(R.id.viewprudocts);
         clientRegist.setOnClickListener(this);
 
         supplierRegist=(Button)findViewById(R.id.supplierRegist);
@@ -75,7 +78,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     progressDialog.dismiss();
-//                    Toast.makeText(loginActivity.this, "Sign successful", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(loginActivity.this, "Sign successful", Toast.LENGTH_SHORT).show();
                     dbRootRef=mDatabase.getInstance().getReference();
                     dbRootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -124,6 +127,9 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View v) {
+        if(pp==v){
+            pp();
+        }
         if(login==v){
             openLoginClient();
         }
@@ -144,6 +150,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     }
     public void openSupplierRegister(){
         Intent intent = new Intent(this, SupplierRegister.class);
+        startActivity(intent);
+    }
+    public void pp(){
+        Intent intent = new Intent(this, GmachDetails.class);
         startActivity(intent);
     }
 }
