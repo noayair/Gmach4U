@@ -45,7 +45,6 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         add.setOnClickListener((View.OnClickListener) this);
         //set firebase
         firebaseAuth= FirebaseAuth.getInstance();
-        FirebaseAuth firebaseAuth2 = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference();
     }
     private void addTheProduct(){

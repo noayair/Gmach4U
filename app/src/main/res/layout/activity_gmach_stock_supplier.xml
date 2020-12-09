@@ -15,20 +15,19 @@
         android:text="My Products"
         android:textSize="36sp" />
 
-    <ListView
-        android:id="@+id/ProductsList"
-        android:layout_width="match_parent"
-        android:layout_height="600dp" />
-
     <Button
         android:id="@+id/AddProduct"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autoText="false"
+        android:layout_height="wrap_content"
         android:background="#00FFFFFF"
         android:fontFamily="@font/architects_daughter"
         android:text="+ Add"
         android:textColor="#121010"
         android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/ProductsList"
+        android:layout_width="match_parent"
+        android:layout_height="452dp" />
 
 </LinearLayout>

@@ -22,8 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import Adapters.ProductAdapter;
 import Adapters.ProductItem;
 
 public class GmachStockSupplier extends AppCompatActivity implements View.OnClickListener{
@@ -45,18 +49,27 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild("products")) {
-
+                    String [] products = {"You don't have products yet"};
+                    ArrayAdapter<String> aa = new ArrayAdapter<String>(GmachStockSupplier.this, android.R.layout.simple_list_item_1, products);
+                    listView.setAdapter(aa);
                 } else {
+                   ArrayList<ProductItem> prodList = new ArrayList<ProductItem>();
                     for(DataSnapshot product: snapshot.child("products").getChildren()){
-                        //show products
+                        ProductItem p = product.getValue(ProductItem.class);
+                        prodList.add(p);
                     }
+                    //check if okay!!!!!
+                    ProductAdapter adapter = new ProductAdapter(getApplicationContext(), prodList);
+                    listView.setAdapter(adapter);
                 }
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        }); //end listener
     }
     private void setUIViews(){
         //set text
@@ -68,16 +81,8 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
         firebaseAuth= FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference()
                 .child("Suppliers").child(firebaseAuth.getUid());
-        //set adapter
-//        String[] sports = {"soccer","football"};
-//        ArrayAdapter<String> SA = new ArrayAdapter<String>(
-//                GmachStockSupplier.this,
-//                android.R.layout.simple_list_item_1,
-//                sports);
-//        setContentView(listView);
-//        listView.setAdapter(SA);
-
     }
+
     public void onClick(View v) {
         if(v.getId() == R.id.AddProduct) {
             startActivity(new Intent(GmachStockSupplier.this,Product.class));

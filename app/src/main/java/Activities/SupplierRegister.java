@@ -95,8 +95,8 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     }//end setButton
 
     private void writeNewUser(String userId) {
-        Supplier user = new Supplier(name, email, phone,address,openingTime,category,location);
-        myRef.child("Suppliers").child(user.getId()).child("details").setValue(user);
+        Supplier user = new Supplier(name, email, phone,address,openingTime,category,location,userId);
+        myRef.child("Suppliers").child(firebaseAuth.getUid()).child("details").setValue(user);
     }//end write new user
 
     @Override

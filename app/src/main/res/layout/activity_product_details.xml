@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Activities.ProductDetails">
+
+    <ImageView
+        android:id="@+id/Image"
+        android:layout_width="137dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027"
+        tools:srcCompat="@color/teal_700" />
+
+    <TextView
+        android:id="@+id/pname"
+        android:layout_width="257dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="492dp"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:inputType="textPersonName"
+        android:paddingLeft="80px"
+        android:text="Product Name"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductImage"
+        app:layout_constraintVertical_bias="0.065" />
+
+    <EditText
+        android:id="@+id/pdesc"
+        android:layout_width="219dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="260dp"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:text="description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductName"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <TextView
+        android:id="@+id/punits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="172dp"
+        android:ems="10"
+        android:fontFamily="@font/architects_daughter"
+        android:inputType="number"
+        android:paddingLeft="180px"
+        android:text="Units in stack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductDescription"
+        app:layout_constraintVertical_bias="0.17" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

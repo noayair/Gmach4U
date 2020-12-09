@@ -1,19 +1,17 @@
 package Adapters;
 
 public class Supplier {
-    private String name, email, phone, address, openingTime, category, location;
-    private String id;
-    private static int counter;
+    private String name, email, phone, address, openingTime, category, location, id;
 
     public Supplier(){}
 
-    public Supplier(String name, String email, String phone, String address, String openingTime, String category, String location){
+    public Supplier(String name, String email, String phone, String address, String openingTime, String category, String location,String id){
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.openingTime = openingTime;
-        this.id = Integer.toString(counter++);
+        this.id = id;
         this.category = category;
         this.location = location;
     }
