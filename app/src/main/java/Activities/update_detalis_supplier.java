@@ -3,7 +3,9 @@ package Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,9 +17,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import Adapters.Supplier;
+
 
 public class update_detalis_supplier extends AppCompatActivity {
-    private EditText supName, supPassword, supEmail, supPhone, supAddress, supTime;
+    private EditText supName, supEmail, supPhone, supAddress, supTime;
     private Button save;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -27,62 +31,76 @@ public class update_detalis_supplier extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_detalis_supplier);
-     //   setUIViews();
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//
-//        final DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+        setUIViews();
+       firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference =
+                firebaseDatabase.getReference();
 
-//        databaseReference.addValueEventListener(new ValueEventListener() {
+
+       databaseReference.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                UserProfile userProfile = snapshot.getValue(UserProfile.class);
-//                newUserName.setText(userProfile.getUserName());
-//                newUserEmail.setText(userProfile.getUserEmail());
-//                newUserPhone.setText(userProfile.getUserPhone());
-//            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
 
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(UpdateProfile.this, error.getCode(), Toast.LENGTH_SHORT).show();
+//                for (DataSnapshot child : dataSnapshot.getChildren())
+//                {
+//                    for(DataSnapshot grandChild: child.getChildren()){
+//                        Toast.makeText(getApplicationContext(), grandChild.getKey() ,Toast.LENGTH_LONG).show();
 //
-//            }
-        //  });
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-  //      public void onClick (View v){
-//                String name = newUserName.getText().toString();
-//                String email = newUserEmail.getText().toString();
-//                String phone = newUserPhone.getText().toString();
-//
-//                UserProfile userProfile = new UserProfile(name, email, phone);
-//
-//                databaseReference.child("User details").setValue(userProfile);
-//
-//                startActivity(new Intent(UpdateProfile.this, myProfile.class));
-//                Toast.makeText(UpdateProfile.this, "Changed Successfully!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        });
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+//                    }
+
+               //     Toast.makeText(getApplicationContext(), child.getValue(String.class), Toast.LENGTH_LONG).show();
+   //             }
 
 
-//            private void setUIViews () {
-//                supName = (EditText) findViewById(R.id.update_name);
-//                supPassword = (EditText) findViewById(R.id.updae_password);
-//                supEmail = (EditText) findViewById(R.id.update_email);
-//                supPhone = (EditText) findViewById(R.id.update_phone);
-//                supAddress = (EditText) findViewById(R.id.update_addres);
-//                supTime = (EditText) findViewById(R.id.update_open);
-//                save = (Button) findViewById(R.id.update_ok);
-//
-//            }
+           //     Supplier supplier = dataSnapshot.child("Suppliers").child("details").getValue(Supplier.class);
+//                Toast.makeText(update_detalis_supplier.this,dataSnapshot.getValue(Supplier.class).toString(), Toast.LENGTH_SHORT).show();
+
+//              supName.setText(supplier.getName());
+//              supEmail.setText(supplier.getEmail());
+//               supPhone.setText(supplier.getPhone());
+            }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(update_detalis_supplier.this, error.getCode(), Toast.LENGTH_SHORT).show();
+
+           }
+       });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+              public void onClick (View v){
+                String name = supName.getText().toString();
+                String email = supEmail.getText().toString();
+                String phone = supPhone.getText().toString();
+                String address = supAddress.getText().toString();
+                String time = supTime.getText().toString();
+
+
+          //      Supplier supplier = new Supplier(name, email, phone,address,time);
+
+          //      databaseReference.child("User details").setValue(supplier);
+
+                startActivity(new Intent(update_detalis_supplier.this, MainSupplier.class));
+                Toast.makeText(update_detalis_supplier.this, "Changed Successfully!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+    }
+
+
+            private void setUIViews() {
+                supName = (EditText) findViewById(R.id.update_name);
+               // supPassword = (EditText) findViewById(R.id.updae_password);
+                supEmail = (EditText) findViewById(R.id.update_email);
+                supPhone = (EditText) findViewById(R.id.update_phone);
+                supAddress = (EditText) findViewById(R.id.update_addres);
+                supTime = (EditText) findViewById(R.id.update_open);
+                save = (Button) findViewById(R.id.update_ok);
+
+            }
 
 //
 //    private boolean validate(){
@@ -114,5 +132,5 @@ public class update_detalis_supplier extends AppCompatActivity {
 //        }
 //        return result;
 //    }
-        }
+
     }
