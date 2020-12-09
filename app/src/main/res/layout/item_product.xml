@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/pName"
+        android:layout_width="106dp"
+        android:layout_height="109dp"
+        android:paddingLeft="100px"
+        android:paddingTop="100px"
+        android:text="name" />
+
+    <TextView
+        android:id="@+id/pUnits"
+        android:layout_width="106dp"
+        android:layout_height="109dp"
+        android:paddingLeft="100px"
+        android:paddingTop="100px"
+        android:text="units" />
+
+    <Button
+        android:id="@+id/goToDetails"
+        android:layout_width="106dp"
+        android:layout_height="109dp"
+        android:layout_weight="1"
+        app:backgroundTint="#00FFFFFF"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="#FA0B0A0A" />
+</LinearLayout>

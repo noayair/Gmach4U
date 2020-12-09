@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activities.Product">
+    tools:context="Activities.ProductDetails">
 
     <ImageView
-        android:id="@+id/ProductImage"
+        android:id="@+id/Image"
         android:layout_width="137dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,27 +17,11 @@
         app:layout_constraintVertical_bias="0.027"
         tools:srcCompat="@color/teal_700" />
 
-    <Button
-        android:id="@+id/AddTheProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="Add"
-        android:textColor="#150F0F"
-        android:textSize="24sp"
-        app:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UnitsInStock"
-        app:layout_constraintVertical_bias="0.544" />
-
-    <EditText
-        android:id="@+id/ProductName"
+    <TextView
+        android:id="@+id/pname"
         android:layout_width="257dp"
         android:layout_height="65dp"
+        android:layout_marginBottom="492dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
         android:inputType="textPersonName"
@@ -46,16 +30,16 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductImage"
         app:layout_constraintVertical_bias="0.065" />
 
     <EditText
-        android:id="@+id/ProductDescription"
+        android:id="@+id/pdesc"
         android:layout_width="219dp"
         android:layout_height="174dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="260dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
         android:gravity="start|top"
@@ -64,15 +48,15 @@
         android:text="description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductName"
         app:layout_constraintVertical_bias="0.044" />
 
-    <EditText
-        android:id="@+id/UnitsInStock"
+    <TextView
+        android:id="@+id/punits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="172dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
         android:inputType="number"
@@ -80,8 +64,9 @@
         android:text="Units in stack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductDescription"
         app:layout_constraintVertical_bias="0.17" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

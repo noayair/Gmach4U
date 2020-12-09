@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gmach4U">
-        <activity android:name="Activities.update_detalis_supplier"></activity>
+        <activity
+            android:name="Activities.ProductDetails"
+            android:label="@string/title_activity_product_details"
+            android:theme="@style/Theme.Gmach4U.NoActionBar"></activity>
+        <activity android:name="Activities.update_detalis_supplier" />
         <activity android:name="Activities.Product" />
         <activity android:name="Activities.SearchHistory" />
         <activity android:name="Activities.GmachStockSupplier" />
