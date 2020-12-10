@@ -84,47 +84,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //for on the suppliers
-                if (!category.equals("Search by category")){
-                    if (!location.equals("Search by location")){
-                        //search both
+                    if (!category.equals("Search by category")){
+                        if (!location.equals("Search by location")){
+                            //search both
+                            for(DataSnapshot sup: snapshot.getChildren()) {
+                                Supplier s = sup.child("details").getValue(Supplier.class);
+                                if (s.getCategory().equals(category) && s.getLocation().equals(location)){
+                                    list_supp.add(s.getId());
+                                }
+                            }
+                        }
+                        else {
+                            //search category
+                            for(DataSnapshot sup: snapshot.getChildren()) {
+                                Supplier s = sup.child("details").getValue(Supplier.class);
+                                if (s.getCategory().equals(category)){
+                                    list_supp.add(s.getId());
+                                }
+                            }
+                        }
+                        //move to results
+                        Intent i = new Intent(MainActivity.this, SearchResults.class);
+                        i.putExtra("list", list_supp);
+                        startActivity(i);
+                    }
+                    else if (!location.equals("Search by location")){
+                        //search locaction
                         for(DataSnapshot sup: snapshot.getChildren()) {
                             Supplier s = sup.child("details").getValue(Supplier.class);
-                            if (s.getCategory().equals(category) && s.getLocation().equals(location)){
+                            if (s.getLocation().equals(location)){
                                 list_supp.add(s.getId());
                             }
                         }
+                        //move to results
+                        Intent i = new Intent(MainActivity.this, SearchResults.class);
+                        i.putExtra("list", list_supp);
+                        startActivity(i);
                     }
                     else {
-                        //search category
-                        for(DataSnapshot sup: snapshot.getChildren()) {
-                            Supplier s = sup.child("details").getValue(Supplier.class);
-                            if (s.getCategory().equals(category)){
-                                list_supp.add(s.getId());
-                            }
-                        }
+                        //error!!!
+                        Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
                     }
-                    //move to results
-                    Intent i = new Intent(MainActivity.this, SearchResults.class);
-                    i.putExtra("list", list_supp);
-                    startActivity(i);
-                }
-                else if (!location.equals("Search by location")){
-                    //search locaction
-                    for(DataSnapshot sup: snapshot.getChildren()) {
-                        Supplier s = sup.child("details").getValue(Supplier.class);
-                        if (s.getLocation().equals(location)){
-                            list_supp.add(s.getId());
-                        }
-                    }
-                    //move to results
-                    Intent i = new Intent(MainActivity.this, SearchResults.class);
-                    i.putExtra("list", list_supp);
-                    startActivity(i);
-                }
-                else {
-                    //error!!!
-                    Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
-                }
 
             }
             @Override

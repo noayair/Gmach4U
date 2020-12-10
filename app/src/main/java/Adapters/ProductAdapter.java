@@ -38,16 +38,16 @@ public class ProductAdapter extends ArrayAdapter<ProductItem>{
 //        ImageView pImg = (ImageView) convertView.findViewById(R.id.pImg);
         TextView pName = (TextView) convertView.findViewById(R.id.pName);
         TextView pUnits = (TextView) convertView.findViewById(R.id.pUnits);
-        Button goToDetails =  (Button) convertView.findViewById(R.id.goToDetails);
-        goToDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(v.getId() == R.id.goToDetails){
-
-                }
-            }
-
-        });
+//        Button goToDetails =  (Button) convertView.findViewById(R.id.goToDetails);
+//        goToDetails.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(v.getId() == R.id.goToDetails){
+//
+//                }
+//            }
+//
+//        });
         // Populate the data into the template view using the data object
         pName.setText("name:" +user.getName());
         pUnits.setText("units in stock: "+user.getUnitsInStock());
