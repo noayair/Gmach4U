@@ -77,7 +77,6 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

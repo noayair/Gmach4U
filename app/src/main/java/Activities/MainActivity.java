@@ -33,14 +33,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import Adapters.ProductItem;
+import Adapters.Supplier;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Spinner categorySelectSpinner;
     private Spinner locationSelectSpinner;
-    private Button search_by_location_Button;
+    private Button search_Button;
     FirebaseAuth firebaseAuth;
-    ListView listView;
-    ArrayAdapter<String> adapter1;
+    ArrayAdapter<String> categoriesAdapter,locationsAdapter;
 
     DatabaseReference myRef;
     private AutoCompleteTextView txtSearch;
@@ -50,191 +52,86 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        firebaseAuth=FirebaseAuth.getInstance();
+        setViews();
 
-//      ***************************SEARCH BY CATEGORY*************************************
+    }
+
+    private void setViews() {
+        //set button
+        search_Button = (Button)findViewById(R.id.search_button);
+        search_Button.setOnClickListener((View.OnClickListener)this);
+        //set firebase
+        firebaseAuth=FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference("Suppliers");
+        //set sppiner
         categorySelectSpinner = (Spinner) findViewById(R.id.mainActivity_category_spinner);
-        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
+        categoriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
         categoriesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categorySelectSpinner.setAdapter(categoriesAdapter);
 
-
-
-
-
-
-        //************************SEARCH BY LOCATION**************************************
         locationSelectSpinner = (Spinner) findViewById(R.id.mainActivity_location_spinner);
-        search_by_location_Button = (Button)findViewById(R.id.search_button);
-        ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
+        locationsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
         locationsAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         locationSelectSpinner.setAdapter(locationsAdapter);
-        search_by_location_Button.setOnClickListener(new View.OnClickListener(){
-            public  void onClick(View view){
-                String selectedLocation = getResources().getStringArray(R.array.locationsArray)[locationSelectSpinner.getSelectedItemPosition()];
-                openSearchButton();
-            }
-        });
     }
 
+    private void gmachSearch() {
+        String category, location;
+        category = categorySelectSpinner.getSelectedItem().toString();
+        location = locationSelectSpinner.getSelectedItem().toString();
+        ArrayList<String> list_supp = new ArrayList<>();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //for on the suppliers
+                    if (!category.equals("Search by category")){
+                        if (!location.equals("Search by location")){
+                            //search both
+                            for(DataSnapshot sup: snapshot.getChildren()) {
+                                Supplier s = sup.child("details").getValue(Supplier.class);
+                                if (s.getCategory().equals(category) && s.getLocation().equals(location)){
+                                    list_supp.add(s.getId());
+                                }
+                            }
+                        }
+                        else {
+                            //search category
+                            for(DataSnapshot sup: snapshot.getChildren()) {
+                                Supplier s = sup.child("details").getValue(Supplier.class);
+                                if (s.getCategory().equals(category)){
+                                    list_supp.add(s.getId());
+                                }
+                            }
+                        }
+                        //move to results
+                        Intent i = new Intent(MainActivity.this, SearchResults.class);
+                        i.putExtra("list", list_supp);
+                        startActivity(i);
+                    }
+                    else if (!location.equals("Search by location")){
+                        //search locaction
+                        for(DataSnapshot sup: snapshot.getChildren()) {
+                            Supplier s = sup.child("details").getValue(Supplier.class);
+                            if (s.getLocation().equals(location)){
+                                list_supp.add(s.getId());
+                            }
+                        }
+                        //move to results
+                        Intent i = new Intent(MainActivity.this, SearchResults.class);
+                        i.putExtra("list", list_supp);
+                        startActivity(i);
+                    }
+                    else {
+                        //error!!!
+                        Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
+                    }
 
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-    //from youtube
-
-//    private void populateSearch() {
-//        ValueEventListener eventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    ArrayList<String> names = new ArrayList<>();
-//                    for(DataSnapshot ds : snapshot.getChildren()){
-//                        String n = ds.child("name").getValue(String.class);
-//                        names.add(n);
-//                    }
-//                    ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, names);
-//                    txtSearch.setAdapter(adapter);
-//                    txtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                            String selection = parent.getItemAtPosition(position).toString();
-//                            getUsers(position);
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        };
-//        myRef.addListenerForSingleValueEvent(eventListener);
-//    }
-
-//    private void getUsers(int selection) {
-//        Query query = myRef.orderByChild("name").equalTo(selection);
-//        ValueEventListener eventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    ArrayList<UserInfo> userInfos = new ArrayList<>();
-//                    for(DataSnapshot ds : snapshot.getChildren()){
-//                        UserInfo userInfo = new UserInfo(ds.child("name").getValue(String.class)
-//                        , ds.child("category").getValue(String.class)
-//                        , ds.child("location").getValue(String.class));
-//                        userInfos.add(userInfo);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        };
-//        query.addListenerForSingleValueEvent(eventListener);
-//    }
-//
-//    class UserInfo{
-//        public String name;
-//        public String category;
-//        public String location;
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-//
-//        public String getCategory() {
-//            return category;
-//        }
-//
-//        public void setCategory(String category) {
-//            this.category = category;
-//        }
-//
-//        public String getLocation() {
-//            return location;
-//        }
-//
-//        public void setLocation(String location) {
-//            this.location = location;
-//        }
-//
-//        public UserInfo(String name, String category, String location) {
-//            this.name = name;
-//            this.category = category;
-//            this.location = location;
-//        }
-//    }
-//
-//
-//    public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-//
-//        private ArrayList<UserInfo> localDataSet;
-//
-//        /**
-//         * Provide a reference to the type of views that you are using
-//         * (custom ViewHolder).
-//         */
-//        public static class ViewHolder extends RecyclerView.ViewHolder {
-//            private final TextView textView;
-//
-//            public ViewHolder(View view) {
-//                super(view);
-//                // Define click listener for the ViewHolder's View
-//
-//                textView = (TextView) view.findViewById(R.id.textView);
-//            }
-//
-//            public TextView getTextView() {
-//                return textView;
-//            }
-//        }
-//
-//        /**
-//         * Initialize the dataset of the Adapter.
-//         *
-//         * @param dataSet String[] containing the data to populate views to be used
-//         * by RecyclerView.
-//         */
-//        public CustomAdapter(ArrayList<UserInfo> dataSet) {
-//            this.localDataSet = dataSet;
-//        }
-//
-//        // Create new views (invoked by the layout manager)
-//        @Override
-//        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-//            LayoutInflater layoutInflater = LayoutInflater.from(getParent().getBaseContext());
-//            View view = LayoutInflater.inflate(R.layout.row_style, getParent(), false);
-//        }
-//
-//        // Replace the contents of a view (invoked by the layout manager)
-//        @Override
-//        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-//
-//            // Get element from your dataset at this position and replace the
-//            // contents of the view with that element
-//            viewHolder.getTextView().setText(localDataSet[position]);
-//        }
-//
-//        // Return the size of your dataset (invoked by the layout manager)
-//        @Override
-//        public int getItemCount() {
-//            return localDataSet.length;
-//        }
-//    }
-
-
-
-    public void openSearchButton(){
-        Intent intent = new Intent(this, SearchResults.class);
-        startActivity(intent);
+            }
+        }); //end listener
     }
 
     //**************************Logout & Search & personal profile buttons***************************************
@@ -259,16 +156,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    public boolean onQueryTextChange(String newText) {
-        adapter1.getFilter().filter(newText);
-        return true;
-    }
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.main_logoutMenu){
@@ -278,5 +165,13 @@ public class MainActivity extends AppCompatActivity {
             openPrivateZone();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.search_button){
+            //start the search
+            gmachSearch();
+        }
     }
 }
