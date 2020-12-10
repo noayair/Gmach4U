@@ -1,16 +1,17 @@
 package Adapters;
 
 public class ProductItem {
-    private String name, description, unitsInStock;
+    private String name, description, unitsInStock, burrowTime;
     private int id;
     private static int counter;
 
     public ProductItem(){}
-    public ProductItem(String name, String description, String unitsInStock){
+    public ProductItem(String name, String description, String unitsInStock, String burrowTime){
         this.name = name;
         this.description = description;
         this.unitsInStock = unitsInStock;
         this.id = counter++;
+        this.burrowTime = burrowTime;
     }
     //set & get
     public String getName () { return this.name;}
@@ -20,5 +21,6 @@ public class ProductItem {
     public String getUnitsInStock() {return this.unitsInStock;}
     public void setUnitsInStock() {this.unitsInStock = unitsInStock;}
     public int getId() {return this.id;}
-    public void setId() {this.id = id;}
+    public String getBurrowTime() {return this.burrowTime;}
+    public void setBurrowTime(String burrowTime) {this.burrowTime = burrowTime;}
 }
