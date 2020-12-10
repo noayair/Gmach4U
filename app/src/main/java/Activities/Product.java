@@ -24,8 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class Product extends AppCompatActivity implements View.OnClickListener{
-    private EditText prod_name, prod_description, prod_units;
-    private String name, description, units;
+    private EditText prod_name, prod_description, prod_units, prod_burrowTime;
+    private String name, description, units, burrowTime;
     private Button add;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
@@ -40,6 +40,7 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         prod_name = (EditText) findViewById(R.id.ProductName);
         prod_description = (EditText) findViewById(R.id.ProductDescription);
         prod_units = (EditText) findViewById(R.id.UnitsInStock);
+        prod_burrowTime = (EditText) findViewById(R.id.DaysToBurrow);
         //set button
         add = (Button) findViewById(R.id.AddTheProduct);
         add.setOnClickListener((View.OnClickListener) this);
@@ -51,8 +52,9 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         name = prod_name.getText().toString();
         description = prod_description.getText().toString();
         units = prod_units.getText().toString();
+        burrowTime = prod_burrowTime.getText().toString();
         if (validate()){
-            ProductItem productItem = new ProductItem(name, description, units);
+            ProductItem productItem = new ProductItem(name, description, units,burrowTime);
             String id = Integer.toString(productItem.getId());
             userRef.child("Suppliers").child(firebaseAuth.getUid()).child("products").child(id).setValue(productItem);
         }

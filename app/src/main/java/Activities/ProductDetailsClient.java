@@ -14,12 +14,13 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
 import android.widget.TextView;
 
 import Adapters.ProductItem;
 
-public class ProductDetails extends AppCompatActivity {
-    TextView name, units, desc, burrow;
+public class ProductDetailsClient extends AppCompatActivity implements View.OnClickListener{
+    TextView name, units, desc;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
     String pId;
@@ -43,7 +44,6 @@ public class ProductDetails extends AppCompatActivity {
                         name.setText(p.getName());
                         units.setText(p.getUnitsInStock());
                         desc.setText(p.getDescription());
-                        burrow.setText(p.getBurrowTime());
                     }
                 }
             }
@@ -59,12 +59,16 @@ public class ProductDetails extends AppCompatActivity {
         name = (TextView) findViewById(R.id.pname);
         units = (TextView) findViewById(R.id.punits);
         desc = (TextView) findViewById(R.id.pdesc);
-        burrow =  (TextView) findViewById(R.id.pburrowTime);
         //set firebase
         firebaseAuth= FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("products");
         //set string
         Intent intent = getIntent();
         pId = intent.getStringExtra("key");
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

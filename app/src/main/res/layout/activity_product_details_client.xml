@@ -7,19 +7,6 @@
     tools:context="Activities.ProductDetails">
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="163dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="time to burrow(in days)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/punits"
-        app:layout_constraintVertical_bias="0.164" />
-
-    <TextView
         android:id="@+id/pname"
         android:layout_width="257dp"
         android:layout_height="65dp"
@@ -76,7 +63,6 @@
         android:layout_width="159dp"
         android:layout_height="17dp"
         android:layout_marginTop="56dp"
-        android:fontFamily="@font/architects_daughter"
         android:text="description:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,10 +72,9 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="102dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
-        android:fontFamily="@font/architects_daughter"
         android:text="units in stock:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,19 +82,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pdesc"
         app:layout_constraintVertical_bias="0.088" />
-
-    <TextView
-        android:id="@+id/pburrowTime"
-        android:layout_width="282dp"
-        android:layout_height="39dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="time to burrow(in days)"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
