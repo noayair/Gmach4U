@@ -30,6 +30,7 @@ public class GmachDetails extends AppCompatActivity {
     private EditText GmachName, GmachAdress, GmachEmail, GmachOpeningHours,GmachPhone;
     private Button viewPrudocts;
     private Button chat;
+    private Supplier s;
     DatabaseReference ref;
     RatingBar ratingBar;
     private ImageButton call;
@@ -46,7 +47,7 @@ public class GmachDetails extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Supplier s = snapshot.getValue(Supplier.class);
+                    s = snapshot.getValue(Supplier.class);
                     GmachAdress.setText(s.getAddress());
                     GmachEmail.setText(s.getEmail());
                     GmachOpeningHours.setText(s.getOpeningTime());
@@ -94,7 +95,9 @@ public class GmachDetails extends AppCompatActivity {
         viewPrudocts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GmachDetails.this,Chat.class));
+                Intent i = new Intent(GmachDetails.this,Chat.class);
+                i.putExtra("key", s.getId());
+                startActivity(i);
             }
         });
         call.setOnClickListener(new View.OnClickListener() {
