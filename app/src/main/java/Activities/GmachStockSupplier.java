@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,34 +36,47 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
     private Button addProd;
     private DatabaseReference userRef;
     FirebaseAuth firebaseAuth;
+    ArrayList<String> prodItemName;
+    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmach_stock_supplier);
         setUIViews();
+        setAdapter();
         showProducts();
     }
-
+    private void setAdapter() {
+        prodItemName = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prodItemName);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String clickedItem = (String) listView.getItemAtPosition(position);
+                String sp[] = clickedItem.split("ID:");
+                String key = sp[1];
+                Intent i = new Intent(GmachStockSupplier.this, ProductDetails.class);
+                i.putExtra("key", key);
+                startActivity(i);
+            }
+        });
+    }//end set adapter
     private void showProducts() {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild("products")) {
-                    String [] products = {"You don't have products yet"};
-                    ArrayAdapter<String> aa = new ArrayAdapter<String>(GmachStockSupplier.this, android.R.layout.simple_list_item_1, products);
-                    listView.setAdapter(aa);
+                    prodItemName.add("You don't have products yet");
+                    arrayAdapter.notifyDataSetChanged();
                 } else {
-                   ArrayList<ProductItem> prodList = new ArrayList<ProductItem>();
                     for(DataSnapshot product: snapshot.child("products").getChildren()){
                         ProductItem p = product.getValue(ProductItem.class);
-                        prodList.add(p);
+                        prodItemName.add(p.getName()+" ID:"+p.getId());
+                        arrayAdapter.notifyDataSetChanged();
                     }
-                    //check if okay!!!!!
-                    ProductAdapter adapter = new ProductAdapter(getApplicationContext(), prodList);
-                    listView.setAdapter(adapter);
                 }
-
 
             }
             @Override
@@ -83,10 +97,10 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
                 .child("Suppliers").child(firebaseAuth.getUid());
     }
 
+    @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.AddProduct) {
-            startActivity(new Intent(GmachStockSupplier.this,Product.class));
+        if(v.getId() == R.id.AddProduct){
+            //go to Product
         }
-    }//end onClick
-
+    }
 }
