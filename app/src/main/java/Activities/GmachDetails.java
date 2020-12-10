@@ -23,8 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.EventListener;
 
+import Adapters.ProductItem;
+import Adapters.Supplier;
+
 public class GmachDetails extends AppCompatActivity {
-    private EditText GmachAdress, GmachEmail, GmachOpeningHours,GmachPhone;
+    private EditText GmachName, GmachAdress, GmachEmail, GmachOpeningHours,GmachPhone;
     private Button viewPrudocts;
     private Button chat;
     DatabaseReference ref;
@@ -36,30 +39,26 @@ public class GmachDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmach_details);
         setUIViews();
-//        Intent intent=getIntent();
-//        String key=intent.getStringExtra("key");
-//        ref= FirebaseDatabase.getInstance().getReference("suppliers");
-//        Query query=ref.orderByKey().equalTo(key);
-//        ValueEventListener eventListener=new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//            if(snapshot.exists()){
-//                for(DataSnapshot ds: snapshot.getChildren()) {
-//                    GmachAdress.setText(ds.child("address").getValue(String.class));
-//                    GmachEmail.setText(ds.child("email").getValue(String.class));
-//                    GmachOpeningHours.setText(ds.child("opening Time").getValue(String.class));
-//                    GmachPhone.setText(ds.child("phone").getValue(String.class));
-//                }
-//            }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        };
-//        query.addListenerForSingleValueEvent(eventListener);
+        Intent intent=getIntent();
+        String key=intent.getStringExtra("key");
+        ref= FirebaseDatabase.getInstance().getReference("Suppliers").child(key).child("details");
+        ref.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Supplier s = snapshot.getValue(Supplier.class);
+                    GmachAdress.setText(s.getAddress());
+                    GmachEmail.setText(s.getEmail());
+                    GmachOpeningHours.setText(s.getOpeningTime());
+                    GmachPhone.setText(s.getPhone());
+                    GmachName.setText(s.getName());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -104,7 +103,7 @@ public class GmachDetails extends AppCompatActivity {
                 String s= "tel:" + GmachPhone.getText().toString();
                 Intent intent=new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:0304958756"));
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
     }//end on create
@@ -113,9 +112,10 @@ public class GmachDetails extends AppCompatActivity {
     private void setUIViews(){
         ratingBar=(RatingBar) findViewById(R.id.ratingBar);
         GmachAdress= (EditText) findViewById(R.id.gAdress);
-        GmachEmail= (EditText) findViewById(R.id.gopeninghours);
-        GmachOpeningHours= (EditText) findViewById(R.id.gEmail1);
+        GmachEmail= (EditText) findViewById(R.id.gEmail1);
+        GmachOpeningHours= (EditText) findViewById(R.id.gopeninghours);
         GmachPhone= (EditText) findViewById(R.id.gPhone);
+        GmachName = (EditText) findViewById(R.id.gmachName);
         viewPrudocts=(Button) findViewById(R.id.chat1);
         chat=(Button) findViewById(R.id.viewprudocts);
         call=(ImageButton) findViewById(R.id.callbtn);
