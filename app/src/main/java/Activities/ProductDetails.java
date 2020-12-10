@@ -28,7 +28,6 @@ import Adapters.ProductAdapter;
 import Adapters.ProductItem;
 
 public class ProductDetails extends AppCompatActivity {
-    ImageView img;
     TextView name, units, desc;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
@@ -49,7 +48,7 @@ public class ProductDetails extends AppCompatActivity {
                 //go on the products
                 for(DataSnapshot d: snapshot.getChildren()){
                     ProductItem p = d.getValue(ProductItem.class);
-                    if(Integer.toString(p.getId()) == pId){
+                    if(Integer.toString(p.getId()).equals(pId)){
                         name.setText(p.getName());
                         units.setText(p.getUnitsInStock());
                         desc.setText(p.getDescription());
@@ -64,8 +63,6 @@ public class ProductDetails extends AppCompatActivity {
     }//end update
 
     private void setUIViews() {
-        //set img
-        img = (ImageView) findViewById(R.id.Image);
         //set text
         name = (TextView) findViewById(R.id.pname);
         units = (TextView) findViewById(R.id.punits);
