@@ -93,7 +93,6 @@ public class update_detalis_supplier extends AppCompatActivity {
 
             private void setUIViews() {
                 supName = (EditText) findViewById(R.id.update_name);
-               // supPassword = (EditText) findViewById(R.id.updae_password);
                 supEmail = (EditText) findViewById(R.id.update_email);
                 supPhone = (EditText) findViewById(R.id.update_phone);
                 supAddress = (EditText) findViewById(R.id.update_addres);
