@@ -6,121 +6,57 @@ import android.os.Bundle;
 
 import com.example.gmach4u.R;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 public class Chat extends AppCompatActivity {
+
+    private EditText email, message, subject;
+    private Button send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-    }
-}
-
-//        import android.support.v7.app.AppCompatActivity;
-//        import android.os.Bundle;
-//        import android.view.View;
-//        import android.view.ViewGroup;
-//        import android.widget.EditText;
-//        import android.widget.ImageView;
-//        import android.widget.LinearLayout;
-//        import android.widget.ScrollView;
-//        import android.widget.TextView;
+//        setupUI();
 //
-//        import com.firebase.client.ChildEventListener;
-//        import com.firebase.client.DataSnapshot;
-//        import com.firebase.client.Firebase;
-//        import com.firebase.client.FirebaseError;
-//
-//        import java.util.HashMap;
-//        import java.util.Map;
-//
-//public class Chat extends AppCompatActivity {
-//    LinearLayout layout;
-//    ImageView sendButton;
-//    EditText messageArea;
-//    ScrollView scrollView;
-//    Firebase reference1, reference2;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_chat);
-//
-//        layout = (LinearLayout)findViewById(R.id.layout1);
-//        sendButton = (ImageView)findViewById(R.id.sendButton);
-//        messageArea = (EditText)findViewById(R.id.messageArea);
-//        scrollView = (ScrollView)findViewById(R.id.scrollView);
-//
-//        Firebase.setAndroidContext(this);
-//        reference1 = new Firebase("https://android-chat-app-e711d.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
-//        reference2 = new Firebase("https://android-chat-app-e711d.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
-//
-//        sendButton.setOnClickListener(new View.OnClickListener() {
+//        send.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                String messageText = messageArea.getText().toString();
+//                String str_subject = subject.getText().toString().trim();
+//                String str_message = message.getText().toString().trim();
+//                String email = "oriyakron100@gmail.com";
 //
-//                if(!messageText.equals("")){
-//                    Map<String, String> map = new HashMap<String, String>();
-//                    map.put("message", messageText);
-//                    map.put("user", UserDetails.username);
-//                    reference1.push().setValue(map);
-//                    reference2.push().setValue(map);
+//                if (str_message.isEmpty() || str_subject.isEmpty()) {
+//                    Toast.makeText(Chat.this, "Please enter subject and message", Toast.LENGTH_SHORT).show();
+//
+//                } else {
+//                    String mail = "mailto:" + email + "?&subject=" + Uri.encode(str_subject) + "&body" + Uri.encode(str_message);
+//
+//                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+//                    intent.setData(Uri.parse(mail));
+//
+//                    try {
+//                        startActivity(Intent.createChooser(intent, "Send Email.."));
+//                    } catch (Exception e) {
+//                        Toast.makeText(Chat.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                    }
 //                }
+//
 //            }
 //        });
 //
-//        reference1.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                Map map = dataSnapshot.getValue(Map.class);
-//                String message = map.get("message").toString();
-//                String userName = map.get("user").toString();
+    }
 //
-//                if(userName.equals(UserDetails.username)){
-//                    addMessageBox("You:-\n" + message, 1);
-//                }
-//                else{
-//                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
-//                }
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
+//    private void setupUI() {
+//        email = (EditText) findViewById(R.id.email_chat);
+//        message = (EditText) findViewById(R.id.message);
+//        subject = (EditText) findViewById(R.id.etSubject);
+//        send = (Button) findViewById(R.id.btnSend);
 //    }
-//
-//    public void addMessageBox(String message, int type){
-//        TextView textView = new TextView(Chat.this);
-//        textView.setText(message);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        lp.setMargins(0, 0, 0, 10);
-//        textView.setLayoutParams(lp);
-//
-//        if(type == 1) {
-//            textView.setBackgroundResource(R.drawable.rounded_corner1);
-//        }
-//        else{
-//            textView.setBackgroundResource(R.drawable.rounded_corner2);
-//        }
-//
-//        layout.addView(textView);
-//        scrollView.fullScroll(View.FOCUS_DOWN);
-//    }
-//}
+}
