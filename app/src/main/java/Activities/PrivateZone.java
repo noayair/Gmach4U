@@ -130,9 +130,9 @@ public class PrivateZone extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setQueryHint("Type here to search");
+//        MenuItem menuItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+//        searchView.setQueryHint("Type here to search");
         return true;
     }
 
