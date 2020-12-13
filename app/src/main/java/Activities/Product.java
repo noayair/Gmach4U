@@ -63,22 +63,22 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
     boolean result;
     private boolean validate(){
         result = true;
-        if (!units.matches("^[0-9]+$")) result = false;
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                DataSnapshot prodList = snapshot.child("Suppliers").child(firebaseAuth.getUid()).child("products");
-                for(DataSnapshot prod: prodList.getChildren()){
-                    if(prod.getValue(ProductItem.class).getName()== name){
-                        result = false;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        }); //end listener
+//        if (!units.matches("^[0-9]+$")) result = false;
+//        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                DataSnapshot prodList = snapshot.child("Suppliers").child(firebaseAuth.getUid()).child("products");
+//                for(DataSnapshot prod: prodList.getChildren()){
+//                    if(prod.getValue(ProductItem.class).getName()== name){
+//                        result = false;
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        }); //end listener
         return result;
     }
     @Override
