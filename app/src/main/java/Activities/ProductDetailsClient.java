@@ -20,10 +20,9 @@ import android.widget.TextView;
 import Adapters.ProductItem;
 
 public class ProductDetailsClient extends AppCompatActivity implements View.OnClickListener{
-    TextView name, units, desc;
-    private FirebaseAuth firebaseAuth;
+    TextView name, units, desc, burrow;
     private DatabaseReference userRef;
-    String pId;
+    String suppId, pId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +36,11 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //go on the products
-                for(DataSnapshot d: snapshot.getChildren()){
-                    ProductItem p = d.getValue(ProductItem.class);
-                    if(Integer.toString(p.getId()).equals(pId)){
-                        name.setText(p.getName());
-                        units.setText(p.getUnitsInStock());
-                        desc.setText(p.getDescription());
-                    }
-                }
+                ProductItem p = snapshot.getValue(ProductItem.class);
+                name.setText(p.getName());
+                units.setText(p.getUnitsInStock());
+                desc.setText(p.getDescription());
+                burrow.setText(p.getBurrowTime());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -56,19 +51,21 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
 
     private void setUIViews() {
         //set text
-        name = (TextView) findViewById(R.id.pname);
-        units = (TextView) findViewById(R.id.punits);
-        desc = (TextView) findViewById(R.id.pdesc);
-        //set firebase
-        firebaseAuth= FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("products");
+        name = (TextView) findViewById(R.id.pcname);
+        units = (TextView) findViewById(R.id.pcunits);
+        desc = (TextView) findViewById(R.id.pcdesc);
+        burrow = (TextView) findViewById(R.id.pcburrowTime);
         //set string
         Intent intent = getIntent();
-        pId = intent.getStringExtra("key");
+        String sp[] = intent.getStringExtra("key").split("pKey:");
+        suppId = sp[0];
+        pId = sp[1];
+        //set firebase
+        userRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(suppId).child("products").child(pId);
     }
 
     @Override
     public void onClick(View v) {
-
+    //reserve!!
     }
 }

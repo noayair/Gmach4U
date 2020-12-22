@@ -47,7 +47,8 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(GmachStockClient.this, ProductDetailsClient.class);
-                i.putExtra("key", position);
+                String key = supp_key+"pKey:"+position;
+                i.putExtra("key", key);
                 startActivity(i);
             }
         });
@@ -78,7 +79,7 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         supp_key = intent.getStringExtra("key");
         //set text
-        listView = (ListView) findViewById(R.id.ProductsList);
+        listView = (ListView) findViewById(R.id.listViewItems);
         //set database
         firebaseAuth= FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference()
@@ -89,6 +90,7 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if(v.getId() == R.id.AddProduct){
             //go to Product
+
         }
     }
 }

@@ -92,14 +92,14 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
         addProd.setOnClickListener((View.OnClickListener) this);
         //set database
         firebaseAuth= FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference()
-                .child("Suppliers").child(firebaseAuth.getUid());
+        userRef = FirebaseDatabase.getInstance().getReference().child("Suppliers").child(firebaseAuth.getUid());
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.AddProduct){
             //go to Product
+            startActivity(new Intent(GmachStockSupplier.this,Product.class));
         }
     }
 }
