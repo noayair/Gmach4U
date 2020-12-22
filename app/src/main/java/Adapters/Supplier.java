@@ -15,6 +15,16 @@ public class Supplier {
         this.category = category;
         this.location = location;
     }
+    public Supplier(String name,String email, String phone, String address,String id){
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.id = id;
+        this.category=getCategory();
+        this.openingTime = getOpeningTime();
+        this.location = getLocation();
+    }
 
     public String getName() {
         return name;
