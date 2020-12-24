@@ -70,7 +70,8 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
             //update the units in stock
             pi.setUnitsInStock(Integer.toString(--unitsOfProd));
             mainRef.child("Suppliers").child(suppId).child("products").child(prodId).setValue(pi);
-            makeToast("reserved!");
+            Intent i = new Intent(ProductDetailsClient.this, AfterReserve.class);
+            startActivity(i);
         }
         else {
             makeToast("there is no enough units in stock!");
