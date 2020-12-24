@@ -95,7 +95,7 @@ public class GmachDetails extends AppCompatActivity {
         viewPrudocts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GmachDetails.this,Chat.class);
+                Intent i = new Intent(GmachDetails.this,GmachStockClient.class);
                 i.putExtra("key", s.getId());
                 startActivity(i);
             }
@@ -119,8 +119,8 @@ public class GmachDetails extends AppCompatActivity {
         GmachOpeningHours= (EditText) findViewById(R.id.gopeninghours);
         GmachPhone= (EditText) findViewById(R.id.gPhone);
         GmachName = (EditText) findViewById(R.id.gmachName);
-        viewPrudocts=(Button) findViewById(R.id.chat1);
-        chat=(Button) findViewById(R.id.viewprudocts);
+        viewPrudocts=(Button) findViewById(R.id.viewprudocts);
+        chat=(Button) findViewById(R.id.chat1);
         call=(ImageButton) findViewById(R.id.callbtn);
     }
 }

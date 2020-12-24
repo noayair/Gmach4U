@@ -27,8 +27,7 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     private Spinner userCategory, userLocation;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference myRef;
-    String name, email, password, phone,category, location, address, openingTime;
-    //test
+    private String name, email, password, phone,category, location, address, openingTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

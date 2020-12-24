@@ -17,9 +17,9 @@ public class ProductItem {
     public String getName () { return this.name;}
     public void setName (String name) { this.name = name;}
     public String getDescription() {return this.description;}
-    public void setDescription() {this.description = description;}
+    public void setDescription(String description) {this.description = description;}
     public String getUnitsInStock() {return this.unitsInStock;}
-    public void setUnitsInStock() {this.unitsInStock = unitsInStock;}
+    public void setUnitsInStock(String unitsInStock) {this.unitsInStock = unitsInStock;}
     public int getId() {return this.id;}
     public String getBurrowTime() {return this.burrowTime;}
     public void setBurrowTime(String burrowTime) {this.burrowTime = burrowTime;}

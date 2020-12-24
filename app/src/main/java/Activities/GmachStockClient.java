@@ -23,18 +23,18 @@ import java.util.ArrayList;
 
 import Adapters.ProductItem;
 
-public class GmachStockClient extends AppCompatActivity implements View.OnClickListener{
+public class GmachStockClient extends AppCompatActivity{
     private ListView listView;
     private DatabaseReference myRef;
     private String supp_key;
-    FirebaseAuth firebaseAuth;
-    ArrayList<String> prodItemName;
-    ArrayAdapter<String> arrayAdapter;
+    private FirebaseAuth firebaseAuth;
+    private ArrayList<String> prodItemName;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gmach_stock_supplier);
+        setContentView(R.layout.activity_gmach_stock_client);
         setUIViews();
         setAdapter();
         showProducts();
@@ -47,7 +47,8 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(GmachStockClient.this, ProductDetailsClient.class);
-                i.putExtra("key", position);
+                String key = supp_key+"pKey:"+position;
+                i.putExtra("key", key);
                 startActivity(i);
             }
         });
@@ -78,17 +79,10 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         supp_key = intent.getStringExtra("key");
         //set text
-        listView = (ListView) findViewById(R.id.ProductsList);
+        listView = (ListView) findViewById(R.id.listViewItems);
         //set database
         firebaseAuth= FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference()
                 .child("Suppliers").child(supp_key);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.AddProduct){
-            //go to Product
-        }
     }
 }
