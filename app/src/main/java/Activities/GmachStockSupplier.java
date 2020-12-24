@@ -35,9 +35,9 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
     private ListView listView;
     private Button addProd;
     private DatabaseReference userRef;
-    FirebaseAuth firebaseAuth;
-    ArrayList<String> prodItemName;
-    ArrayAdapter<String> arrayAdapter;
+    private FirebaseAuth firebaseAuth;
+    private ArrayList<String> prodItemName;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

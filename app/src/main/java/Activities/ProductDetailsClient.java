@@ -20,9 +20,9 @@ import android.widget.TextView;
 import Adapters.ProductItem;
 
 public class ProductDetailsClient extends AppCompatActivity implements View.OnClickListener{
-    TextView name, units, desc, burrow;
+    private TextView name, units, desc, burrow;
     private DatabaseReference userRef;
-    String suppId, pId;
+    private String suppId, pId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

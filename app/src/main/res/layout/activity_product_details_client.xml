@@ -114,8 +114,8 @@
 
     <Button
         android:id="@+id/pcreserve"
-        android:layout_width="118dp"
-        android:layout_height="58dp"
+        android:layout_width="139dp"
+        android:layout_height="53dp"
         android:fontFamily="@font/architects_daughter"
         android:text="Reserve"
         android:textColor="#100A0A"

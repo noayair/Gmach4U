@@ -19,10 +19,10 @@ import android.widget.TextView;
 import Adapters.ProductItem;
 
 public class ProductDetails extends AppCompatActivity {
-    TextView name, units, desc, burrow;
+    private TextView name, units, desc, burrow;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
-    String pId;
+    private String pId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
