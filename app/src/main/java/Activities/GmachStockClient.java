@@ -23,18 +23,18 @@ import java.util.ArrayList;
 
 import Adapters.ProductItem;
 
-public class GmachStockClient extends AppCompatActivity implements View.OnClickListener{
+public class GmachStockClient extends AppCompatActivity{
     private ListView listView;
     private DatabaseReference myRef;
     private String supp_key;
-    FirebaseAuth firebaseAuth;
-    ArrayList<String> prodItemName;
-    ArrayAdapter<String> arrayAdapter;
+    private FirebaseAuth firebaseAuth;
+    private ArrayList<String> prodItemName;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gmach_stock_supplier);
+        setContentView(R.layout.activity_gmach_stock_client);
         setUIViews();
         setAdapter();
         showProducts();
@@ -84,13 +84,5 @@ public class GmachStockClient extends AppCompatActivity implements View.OnClickL
         firebaseAuth= FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference()
                 .child("Suppliers").child(supp_key);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.AddProduct){
-            //go to Product
-
-        }
     }
 }
