@@ -1,17 +1,20 @@
 package Adapters;
 
+import android.net.Uri;
+
 public class ProductItem {
     private String name, description, unitsInStock, burrowTime;
     private int id;
-    private static int counter;
+    public static int counter=0;
 
     public ProductItem(){}
     public ProductItem(String name, String description, String unitsInStock, String burrowTime){
         this.name = name;
         this.description = description;
         this.unitsInStock = unitsInStock;
-        this.id = counter++;
+        this.id = counter;
         this.burrowTime = burrowTime;
+        counter++;
     }
     //set & get
     public String getName () { return this.name;}

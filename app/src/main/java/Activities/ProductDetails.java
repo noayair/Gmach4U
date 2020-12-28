@@ -14,12 +14,14 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import Adapters.ProductItem;
 
 public class ProductDetails extends AppCompatActivity {
     private TextView name, units, desc, burrow;
+    private ImageView img;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
     private String pId;
@@ -60,6 +62,8 @@ public class ProductDetails extends AppCompatActivity {
         units = (TextView) findViewById(R.id.punits);
         desc = (TextView) findViewById(R.id.pdesc);
         burrow =  (TextView) findViewById(R.id.pburrowTime);
+        //set img
+        img = (ImageView) findViewById(R.id.ProductImage);
         //set firebase
         firebaseAuth= FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("products");
