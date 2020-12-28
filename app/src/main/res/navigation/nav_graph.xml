@@ -85,4 +85,24 @@
             android:id="@+id/action_Second4Fragment_to_First3Fragment"
             app:destination="@id/First3Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/First4Fragment"
+        android:name="Activities.First4Fragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first4">
+
+        <action
+            android:id="@+id/action_First4Fragment_to_Second5Fragment"
+            app:destination="@id/Second5Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/Second5Fragment"
+        android:name="Activities.Second5Fragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second5">
+
+        <action
+            android:id="@+id/action_Second5Fragment_to_First4Fragment"
+            app:destination="@id/First4Fragment" />
+    </fragment>
 </navigation>
