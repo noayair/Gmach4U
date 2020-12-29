@@ -17,15 +17,15 @@ public class AfterReserve extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_reserve);
-        resList = (Button) findViewById(R.id.goToReserves);
-        resList.setOnClickListener((View.OnClickListener) this);
+//        resList = (Button) findViewById(R.id.goToReserves);
+//        resList.setOnClickListener((View.OnClickListener) this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.goToReserves){
-            Intent i = new Intent(AfterReserve.this, SearchHistory.class);
-            startActivity(i);
-        }
+//        if(v.getId() == R.id.goToReserves){
+//            Intent i = new Intent(AfterReserve.this, SearchHistory.class);
+//            startActivity(i);
+//        }
     }
 }

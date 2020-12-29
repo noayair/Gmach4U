@@ -10,14 +10,14 @@
         android:id="@+id/textView8"
         android:layout_width="163dp"
         android:layout_height="24dp"
+        android:layout_marginTop="3dp"
         android:fontFamily="@font/architects_daughter"
         android:text="time to burrow(in days)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/punits"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.232" />
 
     <TextView
         android:id="@+id/pname"
@@ -35,10 +35,11 @@
         app:layout_constraintTop_toBottomOf="@+id/pImg"
         app:layout_constraintVertical_bias="0.069" />
 
-    <EditText
+    <TextView
         android:id="@+id/pdesc"
         android:layout_width="229dp"
         android:layout_height="181dp"
+        android:layout_marginTop="3dp"
         android:layout_marginBottom="260dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
@@ -56,6 +57,7 @@
         android:id="@+id/punits"
         android:layout_width="229dp"
         android:layout_height="42dp"
+        android:layout_marginTop="3dp"
         android:layout_marginBottom="172dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
@@ -80,6 +82,7 @@
         android:text="description:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pname"
         app:layout_constraintVertical_bias="0.0" />
@@ -96,7 +99,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pdesc"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/pburrowTime"
@@ -121,7 +124,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006"
+        app:layout_constraintVertical_bias="0.087"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

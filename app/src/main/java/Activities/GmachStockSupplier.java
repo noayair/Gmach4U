@@ -46,11 +46,9 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String clickedItem = (String) listView.getItemAtPosition(position);
-                String sp[] = clickedItem.split("ID:");
-                String key = sp[1];
+                String clickedItem = (String) listView.getItemAtPosition(position); //name of product
                 Intent i = new Intent(GmachStockSupplier.this, ProductDetails.class);
-                i.putExtra("key", key);
+                i.putExtra("key", clickedItem);
                 startActivity(i);
             }
         });
@@ -65,7 +63,7 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
                 } else {
                     for(DataSnapshot product: snapshot.child("products").getChildren()){
                         ProductItem p = product.getValue(ProductItem.class);
-                        prodItemName.add(p.getName()+" ID:"+p.getId());
+                        prodItemName.add(p.getName());
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
