@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -33,6 +34,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import Adapters.Client;
 import Adapters.ProductItem;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> keyList,showList ;
     private ListView mListView;
     private FirebaseDatabase mFirebaseDatabase;
+    private EditText searchByName;
 
 
 
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setViews() {
         //set text
         mListView = (ListView) findViewById(R.id.listView);
+        searchByName = (EditText) findViewById(R.id.editTextTextPersonName);
         //set button
         search_Button = (Button)findViewById(R.id.search_button);
         search_Button.setOnClickListener((View.OnClickListener)this);
@@ -110,62 +115,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void gmachSearch() {
-        String category, location;
+        String category, location, name;
         category = categorySelectSpinner.getSelectedItem().toString();
         location = locationSelectSpinner.getSelectedItem().toString();
+        name = searchByName.getText().toString();
         ArrayList<String> list_supp = new ArrayList<>();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                //for on the suppliers
-                if (!category.equals("Search by category")){
-                    if (!location.equals("Search by location")){
-                        //search both
-                        for(DataSnapshot sup: snapshot.getChildren()) {
-                            Supplier s = sup.child("details").getValue(Supplier.class);
-                            if (s.getCategory().equals(category) && s.getLocation().equals(location)){
-                                list_supp.add(s.getId());
-                            }
-                        }
-                    }
-                    else {
-                        //search category
-                        for(DataSnapshot sup: snapshot.getChildren()) {
-                            Supplier s = sup.child("details").getValue(Supplier.class);
-                            if (s.getCategory().equals(category)){
-                                list_supp.add(s.getId());
-                            }
-                        }
-                    }
-                    //move to results
-                    Intent i = new Intent(MainActivity.this, SearchResults.class);
-                    i.putExtra("list", list_supp);
-                    startActivity(i);
-                }
-                else if (!location.equals("Search by location")){
-                    //search locaction
+        HashMap<String, String> searchHash = new HashMap<>();
+        if(!category.equals("Search by category")){
+            searchHash.put("category", category);
+        }
+        if(!location.equals("Search by location")){
+            searchHash.put("location", location);
+        }
+        if(!name.equals("Search by name") && !name.isEmpty()){
+            searchHash.put("name", name);
+        }
+        if(!searchHash.isEmpty()){
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    //for on the suppliers
                     for(DataSnapshot sup: snapshot.getChildren()) {
-                        Supplier s = sup.child("details").getValue(Supplier.class);
-                        if (s.getLocation().equals(location)){
-                            list_supp.add(s.getId());
+                        Supplier supplier = sup.child("details").getValue(Supplier.class);
+                        boolean isGood = true;
+                        for(String s: searchHash.keySet()){
+                            String value = searchHash.get(s);
+                            if(s.equals("category") && !supplier.getCategory().equals(value)){ //if the category is not equals to the category of the supplier
+                                isGood = false;
+                            }
+                            if(s.equals("location") && !supplier.getLocation().equals(value)){ //if the location is not equals to the location of the supplier
+                                isGood = false;
+                            }
+                            if(s.equals("name") && !supplier.getName().equals(value)){ //if the name is not equals to the name of the supplier
+                                isGood = false;
+                            }
+                        }
+                        if(isGood){
+                            list_supp.add(supplier.getId());
                         }
                     }
-                    //move to results
                     Intent i = new Intent(MainActivity.this, SearchResults.class);
                     i.putExtra("list", list_supp);
                     startActivity(i);
                 }
-                else {
-                    //error!!!
-                    Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
+            }); //end listener
+        }else{
+            //error!!!
+            Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
+        }
 
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        }); //end listener
     }
 
     //*********menu bar**************
