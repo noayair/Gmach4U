@@ -100,7 +100,7 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     String userId = task.getResult().getUser().getUid();
-                    Supplier user = new Supplier(name, email, phone,address,openingTime,category,location,userId,imguri);
+                    Supplier user = new Supplier(name, email, phone,address,openingTime,category,location,userId);
                     myRef.child("Suppliers").child(firebaseAuth.getUid()).child("details").setValue(user);
                     makeToast("Registration success");
                     startActivity(new Intent(SupplierRegister.this,MainSupplier.class));

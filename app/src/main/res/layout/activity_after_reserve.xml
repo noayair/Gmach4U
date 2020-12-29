@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activities.AfterReserve" >
+    android:background="#B998BF"
+    android:padding="2dp">
 
-    <TextView
-        android:id="@+id/arMessage"
-        android:layout_width="334dp"
-        android:layout_height="341dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="Your request sended to the supplier. You can see the updates in your reserves list!"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207" />
-
-    <Button
-        android:id="@+id/goToReserves"
+    <ImageButton
+        android:id="@+id/ib_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/architects_daughter"
-        android:text="My Reserves"
-        android:textColor="#070303"
-        app:backgroundTint="#02FFFFFF"
-        app:iconTint="#050404"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arMessage"
-        app:layout_constraintVertical_bias="0.482" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:src="@drawable/ic_close_white_24dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/mess"
+        android:layout_width="295dp"
+        android:layout_height="159dp"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/architects_daughter"
+        android:padding="25sp"
+        android:text="Thank you! now, when the supplier will accept your request, you will see it in your private zone "
+        android:textSize="20sp" />
+</RelativeLayout>

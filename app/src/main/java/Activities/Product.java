@@ -52,6 +52,7 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
     private StorageReference storageRef;
     private static final int GET_FROM_GALLERY = 3;
     byte[] byteData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,18 +77,17 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         userRef = FirebaseDatabase.getInstance().getReference();
         storageRef = FirebaseStorage.getInstance().getReference("Images");
     }
-    private void addTheProduct(){
-        name = prod_name.getText().toString();
-        description = prod_description.getText().toString();
-        units = prod_units.getText().toString();
-        burrowTime = prod_burrowTime.getText().toString();
-        if (validate()){
-            ProductItem productItem = new ProductItem(name, description, units,burrowTime);
-            userRef.child("Suppliers").child(firebaseAuth.getUid()).child("products").setValue(productItem);
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.productUpImg){
+            if (uploadTask != null && uploadTask.isInProgress()) makeToast("upload in progress");
+            else chooseUploadImg();
+        }
+        if(v.getId() == R.id.AddTheProduct){
+            addTheProduct();
         }
     }
-
-    boolean result;
 
     private void chooseUploadImg() {
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -106,56 +106,57 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byteData = baos.toByteArray();
-                String path = firebaseAuth.getUid()+"/"+(ProductItem.counter+1);
-                uploadTask = storageRef.child(path).putBytes(byteData);
             }
-            catch (FileNotFoundException e) { e.printStackTrace(); }
-            catch (IOException e) { e.printStackTrace(); }
+            catch (FileNotFoundException e) { e.printStackTrace();}
+            catch (IOException e) { e.printStackTrace();}
         }
     }// end on act result
 
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.AddTheProduct){
-            addTheProduct();
+    private void addTheProduct(){
+        //set string
+        name = prod_name.getText().toString();
+        description = prod_description.getText().toString();
+        units = prod_units.getText().toString();
+        burrowTime = prod_burrowTime.getText().toString();
+        if(validate()) {
+            // add obj to DB
+            ProductItem productItem = new ProductItem(name, description, units, burrowTime);
+            userRef.child("Suppliers").child(firebaseAuth.getUid()).child("products").child(name).setValue(productItem);
+            // add img to DB
+            String path = firebaseAuth.getUid() + "/" + name;
+            uploadTask = storageRef.child(path).putBytes(byteData);
+            //back to stock
             startActivity(new Intent(Product.this,GmachStockSupplier.class));
             finish();
         }
-        else if(v.getId() == R.id.productUpImg){
-            if (uploadTask != null && uploadTask.isInProgress()){
-                makeToast("upload in progress");
-            } else {
-                chooseUploadImg();
-            }
-        }
     }
-    private String getExtension (Uri uri){
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
-    }
+
     private void makeToast(String m){
         Toast.makeText(Product.this, m, Toast.LENGTH_SHORT).show();
     }
+
+    boolean result = false;
     private boolean validate(){
-        result = true;
-//        if (!units.matches("^[0-9]+$")) result = false;
-//        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                DataSnapshot prodList = snapshot.child("Suppliers").child(firebaseAuth.getUid()).child("products");
-//                for(DataSnapshot prod: prodList.getChildren()){
-//                    if(prod.getValue(ProductItem.class).getName()== name){
-//                        result = false;
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        }); //end listener
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                DataSnapshot prodList = snapshot.child("Suppliers").child(firebaseAuth.getUid()).child("products");
+                for(DataSnapshot prod: prodList.getChildren()){
+                    if(prod.getValue(ProductItem.class).getName().equals(name)){
+                        makeToast("you already have a product with this name");
+                        result = false;
+                    }
+                }
+                result = true;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        }); //end listener
+//        if(units.equals("UnitsInStock")) makeToast("please enter units in stock");
+//        if(burrowTime.equals("Burrow time(in days)")) makeToast("please enter burrow time");
+
         return result;
     }
 }

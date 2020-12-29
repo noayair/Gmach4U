@@ -39,6 +39,19 @@ public class GmachStockClient extends AppCompatActivity{
         setAdapter();
         showProducts();
     }
+
+    private void setUIViews(){
+        //set key
+        Intent intent = getIntent();
+        supp_key = intent.getStringExtra("key");
+        //set text
+        listView = (ListView) findViewById(R.id.listViewItems);
+        //set database
+        firebaseAuth= FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference()
+                .child("Suppliers").child(supp_key);
+    }
+
     private void setAdapter() {
         prodItemName = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prodItemName);
@@ -47,7 +60,7 @@ public class GmachStockClient extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(GmachStockClient.this, ProductDetailsClient.class);
-                String key = supp_key+"pKey:"+position;
+                String key = supp_key+"pKey:"+prodItemName.get(position);
                 i.putExtra("key", key);
                 startActivity(i);
             }
@@ -69,20 +82,7 @@ public class GmachStockClient extends AppCompatActivity{
                 }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         }); //end listener
-    }
-    private void setUIViews(){
-        //set key
-        Intent intent = getIntent();
-        supp_key = intent.getStringExtra("key");
-        //set text
-        listView = (ListView) findViewById(R.id.listViewItems);
-        //set database
-        firebaseAuth= FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference()
-                .child("Suppliers").child(supp_key);
     }
 }
