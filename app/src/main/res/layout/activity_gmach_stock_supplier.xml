@@ -7,52 +7,50 @@
     android:orientation="vertical"
     tools:context="Activities.GmachStockSupplier">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="415dp"
-        android:layout_height="390dp"
-        android:layout_marginTop="17dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MyProducts">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/ProductsList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="100px">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        </ListView>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/MyProducts"
+                android:layout_width="match_parent"
+                android:layout_height="107dp"
+                android:fontFamily="@font/architects_daughter"
+                android:text="My Products"
+                android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/MyProducts"
-        android:layout_width="312dp"
-        android:layout_height="107dp"
-        android:fontFamily="@font/architects_daughter"
-        android:text="My Products"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
+            <Button
+                android:id="@+id/AddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginTop="33dp"
+                android:background="#00FFFFFF"
+                android:fontFamily="@font/architects_daughter"
+                android:text="+ Add"
+                android:textColor="#121010"
+                android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/AddProduct"
-        android:layout_width="132dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="54dp"
-        android:background="#00FFFFFF"
-        android:fontFamily="@font/architects_daughter"
-        android:text="+ Add"
-        android:textColor="#121010"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="307dp"
+                android:layout_marginTop="11dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/ProductsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="100px">
+
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

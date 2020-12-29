@@ -1,11 +1,15 @@
 package Adapters;
 
+import android.net.Uri;
+
 public class Supplier {
     private String name, email, phone, address, openingTime, category, location, id;
+    private Uri imgUri;
 
     public Supplier(){}
 
-    public Supplier(String name, String email, String phone, String address, String openingTime, String category, String location,String id){
+    public Supplier(String name, String email, String phone, String address, String openingTime,
+                    String category, String location,String id,Uri imgUri){
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -14,6 +18,17 @@ public class Supplier {
         this.id = id;
         this.category = category;
         this.location = location;
+        this.imgUri = imgUri;
+    }
+    public Supplier(String name,String email, String phone, String address,String id){
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.id = id;
+        this.category=getCategory();
+        this.openingTime = getOpeningTime();
+        this.location = getLocation();
     }
 
     public String getName() {
@@ -51,5 +66,6 @@ public class Supplier {
     public void setLocation(String location){this.location = location;}
     public String getCategory() {return category;}
     public void setCategory(String category){this.category = category;}
-
+    public Uri getImgUri() {return imgUri;}
+    public void setImgUri(Uri imgUri) {this.imgUri = imgUri;}
 }
