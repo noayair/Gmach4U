@@ -11,10 +11,17 @@
 <!--    </item>-->
 
     <item
+        android:id="@+id/Home"
+        android:title="Home"
+        app:showAsAction="never">
+    </item>
+
+    <item
         android:id="@+id/personal_profile"
         android:title="My profile"
         app:showAsAction="never">
     </item>
+
 
     <item
         android:id="@+id/main_logoutMenu"
