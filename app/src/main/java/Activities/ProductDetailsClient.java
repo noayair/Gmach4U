@@ -15,36 +15,40 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Adapters.ProductItem;
+import Adapters.ReserveProduct;
 
 public class ProductDetailsClient extends AppCompatActivity implements View.OnClickListener{
-    TextView name, units, desc;
+    private TextView name, units, desc, burrow;
+    private Button reserve;
+    private DatabaseReference suppRef, mainRef;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference userRef;
-    String pId;
+    private String suppId, prodId;
+    private ProductItem pi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_details);
+        setContentView(R.layout.activity_product_details_client);
         setUIViews();
         updateDetails();
     }
 
     private void updateDetails() {
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        suppRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //go on the products
-                for(DataSnapshot d: snapshot.getChildren()){
-                    ProductItem p = d.getValue(ProductItem.class);
-                    if(Integer.toString(p.getId()).equals(pId)){
-                        name.setText(p.getName());
-                        units.setText(p.getUnitsInStock());
-                        desc.setText(p.getDescription());
-                    }
+                if(snapshot.exists()) {
+                    pi = snapshot.getValue(ProductItem.class);
+                    name.setText(pi.getName());
+                    units.setText(pi.getUnitsInStock());
+                    desc.setText(pi.getDescription());
+                    burrow.setText(pi.getBurrowTime());
+                    burrow.setText(pi.getBurrowTime());
                 }
             }
             @Override
@@ -54,21 +58,54 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
         });//end listener
     }//end update
 
+    private void reserveProduct(){
+        int unitsOfProd = Integer.parseInt(pi.getUnitsInStock());
+        if(unitsOfProd > 0) {
+            ReserveProduct rp = new ReserveProduct(prodId, suppId, firebaseAuth.getUid());
+            String id = Integer.toString(rp.getId());
+            //add product to client list
+            mainRef.child("Clients").child(firebaseAuth.getUid()).child("reserves").child(id).setValue(rp);
+            //add product to supplier list
+            mainRef.child("Suppliers").child(suppId).child("reserves").child(id).setValue(rp);
+            //update the units in stock
+            pi.setUnitsInStock(Integer.toString(--unitsOfProd));
+            mainRef.child("Suppliers").child(suppId).child("products").child(prodId).setValue(pi);
+            Intent i = new Intent(ProductDetailsClient.this, AfterReserve.class);
+            startActivity(i);
+        }
+        else {
+            makeToast("there is no enough units in stock!");
+        }
+    }//end reserve product
+
     private void setUIViews() {
         //set text
-        name = (TextView) findViewById(R.id.pname);
-        units = (TextView) findViewById(R.id.punits);
-        desc = (TextView) findViewById(R.id.pdesc);
-        //set firebase
-        firebaseAuth= FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("products");
+        name = (TextView) findViewById(R.id.pcname);
+        units = (TextView) findViewById(R.id.pcunits);
+        desc = (TextView) findViewById(R.id.pcdesc);
+        burrow = (TextView) findViewById(R.id.pcburrowTime);
+        //set button
+        reserve = (Button) findViewById(R.id.pcreserve);
+        reserve.setOnClickListener((View.OnClickListener) this);
         //set string
         Intent intent = getIntent();
-        pId = intent.getStringExtra("key");
-    }
+        String sp[] = intent.getStringExtra("key").split("pKey:");
+        suppId = sp[0];
+        prodId = sp[1];
+        //set firebase
+        firebaseAuth= FirebaseAuth.getInstance();
+        mainRef = FirebaseDatabase.getInstance().getReference();
+        suppRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(suppId).child("products").child(prodId);
+    }// end set view
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.pcreserve) {
+            reserveProduct();
+        }
+    }
 
+    private void makeToast(String m){
+        Toast.makeText(ProductDetailsClient.this, m, Toast.LENGTH_SHORT).show();
     }
 }
