@@ -33,28 +33,37 @@ import Adapters.Client;
 
 public class PrivateZone extends AppCompatActivity {
     private static final String TAG = "PrivateZone";
-
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
     private String userID;
     private ListView mListView;
+    private TextView myProfile;
+    private Button update, myProtucts;
+    private ArrayList<String> showList;
+    private ArrayAdapter<String> arrayAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_zone);
+        setUIViews();
+        setAdapter();
+        showDetails();
+    }
 
-        //connect to the client's details from the firebase
-        mListView = (ListView) findViewById(R.id.listView);
-        firebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference().child("Clients").child(firebaseAuth.getUid());
+    private void setAdapter() {
+        showList = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, showList);
+        mListView.setAdapter(arrayAdapter);
+    }//end setAdapter
+
+    private void showDetails() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         userID = user.getUid();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -62,83 +71,102 @@ public class PrivateZone extends AppCompatActivity {
                 if (user != null) {
                     //user is sign-in
                     Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                    toastMessage("successfully signed_in with: " + user.getEmail());
                 } else {
                     //user is sign-out
                     Log.d(TAG, "onAuthStateChanged:signed_out: ");
-                    toastMessage("successfully signed_out");
                 }
-            }
-        };
+            }//end onAutoStateChanged
+        };//end listener
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showData(snapshot);
-            }
+                if (!snapshot.hasChild("details")) {
+                    toastMessage("There is no details");
+                } else {
+                    Client c = snapshot.child("details").getValue(Client.class);
+                    //display all the information
+                    Log.d(TAG, "Name: " + c.getName());
+                    Log.d(TAG, "Email: " + c.getEmail());
+                    Log.d(TAG, "Phone: " + c.getPhone());
+                    showList.add("Name: " + c.getName());
+                    showList.add("Email: " + c.getEmail());
+                    showList.add("Phone: " + c.getPhone());
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }//end onDataChange
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });//end myRef
+    }//end showDetails
+
+    private void setUIViews() {
+        //set text
+        mListView = (ListView) findViewById(R.id.listView);
+        myProfile = (TextView) findViewById(R.id.MyProfile);
+        //set buttons
+        update = (Button) findViewById(R.id.UpdateButton);
+        myProtucts = (Button) findViewById(R.id.MyProductsButton);
+        //set database
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference().child("Clients").child(firebaseAuth.getUid());
+        myProtucts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProtucts();
+            }
         });
-    }
-
-    //take the details from the firebase and put them in the listView
-    private void showData(DataSnapshot snapshot) {
-        if (!snapshot.hasChild("details")) {
-            toastMessage("There is no details");
-        } else {
-            Client c = snapshot.child("details").getValue(Client.class);
-
-                //display all the information
-                Log.d(TAG, "show data: name: " + c.getName());
-                Log.d(TAG, "show data: email: " + c.getEmail());
-                Log.d(TAG, "show data: phone: " + c.getPhone());
-
-                ArrayList<String> array = new ArrayList<>();
-                array.add(c.getName());
-                array.add(c.getEmail());
-                array.add(c.getPhone());
-                ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
-                mListView.setAdapter(adapter);
-        }
-    }
+    }//end setUIViews
 
     public void onStart(){
         super.onStart();
         firebaseAuth.addAuthStateListener(mAuthListener);
-    }
+    }//end onStart
 
     public void onStop(){
         super.onStop();
         if(mAuthListener != null) {
             firebaseAuth.removeAuthStateListener(mAuthListener);
         }
-    }
+    }//end onStop
 
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }//end toast
+
+    private void goToProtucts(){
+        Intent i = new Intent(PrivateZone.this, SearchHistory.class);
+        startActivity(i);
     }
 
-    //menu bar
+
+    //***********menu bar**************
     private void Logout(){
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(this , loginActivity.class));
+    }//end logout
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-//        MenuItem menuItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-//        searchView.setQueryHint("Type here to search");
         return true;
-    }
+    }//end menu
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.main_logoutMenu){
             Logout();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
         }
         return super.onOptionsItemSelected(item);
     }
