@@ -27,13 +27,13 @@
         android:id="@+id/mainActivity_category_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="121dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginBottom="244dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainActivity_title"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
 
     <TextView
         android:id="@+id/output_box"
@@ -54,41 +54,41 @@
         android:id="@+id/mainActivity_location_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="400dp"
+
+        android:layout_marginTop="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/mainActivity_category_spinner"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
         android:layout_marginBottom="36dp"
         android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_location_spinner"
+        app:layout_constraintVertical_bias="0.691" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="406dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="135dp"
+        android:layout_width="376dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="116dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Search by name"
-        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainActivity_location_spinner"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_title"
+        app:layout_constraintVertical_bias="0.016" />
 
     <ListView
         android:id="@+id/listView"
