@@ -32,7 +32,7 @@ public class ProductDetails extends AppCompatActivity {
     private ImageView img;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference userRef;
-    StorageReference storageRef;
+    private StorageReference storageRef;
     private String pId;
 
     @Override
@@ -77,20 +77,18 @@ public class ProductDetails extends AppCompatActivity {
                     }
                 }
                 //set img
-                if(img != null) {
-                    String path = "Images/" + firebaseAuth.getUid() + "/" + pId;
-                    final long ONE_MEGABYTE = (long) Math.pow(1024, 10);
-                    storageRef.child(path).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            img.setImageBitmap(bitmap);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) { }
-                    });
-                }
+                String path = "Images/" + firebaseAuth.getUid() + "/" + pId;
+                final long ONE_MEGABYTE = (long) Math.pow(1024, 10);
+                storageRef.child(path).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        img.setImageBitmap(bitmap);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) { }
+                });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

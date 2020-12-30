@@ -31,6 +31,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import Adapters.Supplier;
 import android.widget.Spinner;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -46,6 +48,7 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     private StorageTask uploadTask;
     private StorageReference storageRef;
     private static final int GET_FROM_GALLERY = 3;
+    byte[] byteData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,11 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
                     String userId = task.getResult().getUser().getUid();
                     Supplier user = new Supplier(name, email, phone,address,openingTime,category,location,userId);
                     myRef.child("Suppliers").child(firebaseAuth.getUid()).child("details").setValue(user);
+                    //upload img
+                    if(byteData != null){
+                        String path = userId + "/" + "main";
+                        uploadTask = storageRef.child(path).putBytes(byteData);
+                    }
                     makeToast("Registration success");
                     startActivity(new Intent(SupplierRegister.this,MainSupplier.class));
                     finish();
@@ -110,24 +118,6 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
                 }//end else
             }//end On complete
         });//end create user
-
-        //upload img
-        StorageReference ref = storageRef.child(System.currentTimeMillis()+"."+getExtension(imguri));
-        uploadTask = ref.putFile(imguri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        makeToast("uploaded successfully");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
     }//end setButton
 
     private void chooseUploadImg() {
@@ -160,14 +150,18 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode==GET_FROM_GALLERY && resultCode == RESULT_OK) {
             imguri = data.getData();
             img.setImageURI(imguri);
             Bitmap bitmap = null;
-            try { bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri); }
-            catch (FileNotFoundException e) { e.printStackTrace(); }
-            catch (IOException e) { e.printStackTrace(); }
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byteData = baos.toByteArray();
+            }
+            catch (FileNotFoundException e) { e.printStackTrace();}
+            catch (IOException e) { e.printStackTrace();}
         }
     }// end on act result
 
