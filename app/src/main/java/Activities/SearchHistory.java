@@ -8,12 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gmach4u.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,90 +23,84 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import Adapters.Client;
+import Adapters.ProductItem;
+import Adapters.ReserveProduct;
 
 public class SearchHistory extends AppCompatActivity {
-    private static final String TAG = "SearchHistory";
-    private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myRef;
-    private ListView mListView;
-    private TextView myProduts;
-    private ArrayList<String> showList;
-    private ArrayAdapter<String> arrayAdapter;
-    private String userID;
-
+    private ListView listView;
+    private HashMap<String, String> reserveDetails;
+    private List<HashMap<String, String>> listItems;
+    private SimpleAdapter adapter;
+    private DatabaseReference prodRef, reserveRef, clientRef;
+    private FirebaseAuth fireBaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_history);
         setUIViews();
-        setAdapter();
-        showProducts();
-    }//end onCreate
+        setList();
+    }
 
-    private void showProducts() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        userID = user.getUid();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    //user is sign-in
-                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                } else {
-                    //user is sign-out
-                    Log.d(TAG, "onAuthStateChanged:signed_out: ");
-                }
-            }//end onAutoStateChanged
-        };//end listener
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.hasChild("reserves")) {
-                    showList.add("There is no products yet");
-                    arrayAdapter.notifyDataSetChanged();
-                } else {
-                    showList.add(snapshot.toString());
-                    arrayAdapter.notifyDataSetChanged();
-                }
-            }//end onDataChange
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });//end myRef
-    }//end showProducts
-
-    private void setAdapter() {
-        showList = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, showList);
-        mListView.setAdapter(arrayAdapter);
-    }//end setAdapter
-
-    private void setUIViews() {
+    private void setUIViews(){
         //set text
-        mListView = (ListView) findViewById(R.id.MyProdutsList);
-        myProduts = (TextView) findViewById(R.id.MyProductsHistory);
-        //set database
-        firebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference().child("Clients").child("reserves");
-    }//end setUIViews
+        listView = (ListView) findViewById(R.id.reservelistclient);
+        //set list
+        reserveDetails = new HashMap<>();
+        listItems = new ArrayList<>();
+        adapter = new SimpleAdapter(this, listItems, R.layout.list_2_items,
+                new String[]{"First Line", "Second Line"},
+                new int[]{R.id.text1, R.id.text2});
+        //set database ref
+        fireBaseAuth = FirebaseAuth.getInstance();
+        reserveRef = FirebaseDatabase.getInstance().getReference("Clients").child(fireBaseAuth.getUid()).child("reserves");
+        prodRef = FirebaseDatabase.getInstance().getReference("Suppliers");
+        clientRef = FirebaseDatabase.getInstance().getReference("Clients").child(fireBaseAuth.getUid()).child("details");
+        //
+        listView.setAdapter(adapter);
+    }
 
+    private void setList() {
+        reserveRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override public void onDataChange(DataSnapshot snapshot) {
+                for(DataSnapshot reserve: snapshot.getChildren()){
+                    ReserveProduct res = reserve.getValue(ReserveProduct.class);
+                    //get prod name
+                    prodRef.child(res.getSupplierId()).child("products").child(res.getProductId()).addValueEventListener(new ValueEventListener() {
+                        @Override public void onDataChange(DataSnapshot snapshot) {
+                            String pName = snapshot.getValue(ProductItem.class).getName();
+                            clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override public void onDataChange(DataSnapshot snapshot) {
+                                    String cName = snapshot.getValue(Client.class).getName();
+                                    reserveDetails.put("product name: "+pName,"supplier name: "+ cName);
+                                    //
+                                    HashMap<String, String> resultsMap = new HashMap<>();
+                                    resultsMap.put("First Line", "product name: "+pName);
+                                    resultsMap.put("Second Line", "supplier name: "+ cName);
+                                    listItems.add(resultsMap);
+                                    adapter.notifyDataSetChanged();
+                                }
+                                @Override public void onCancelled(@NonNull DatabaseError error) { }
+                            }); //end listener client ref
+                        }
+                        @Override public void onCancelled(@NonNull DatabaseError error) { }
+                    }); //end listener prod ref
+                    //get client name
+                }
+            }
+            @Override public void onCancelled(@NonNull DatabaseError error) { }
+        }); //end listener reserve ref
+    }
 
-
-
-//********menu bar************
+//************menu bar************
 
     private void Logout(){
-        firebaseAuth.signOut();
+        fireBaseAuth.signOut();
         finish();
         startActivity(new Intent(SearchHistory.this,loginActivity.class));
     }
