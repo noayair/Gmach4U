@@ -19,7 +19,7 @@
             <TextView
                 android:id="@+id/MyProducts"
                 android:layout_width="match_parent"
-                android:layout_height="107dp"
+                android:layout_height="64dp"
                 android:fontFamily="@font/architects_daughter"
                 android:text="My Products"
                 android:textSize="36sp" />
@@ -27,8 +27,7 @@
             <Button
                 android:id="@+id/AddProduct"
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginTop="33dp"
+                android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
                 android:fontFamily="@font/architects_daughter"
                 android:text="+ Add"
@@ -45,7 +44,7 @@
                 <ListView
                     android:id="@+id/ProductsList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="605dp"
                     android:paddingLeft="100px">
 
                 </ListView>

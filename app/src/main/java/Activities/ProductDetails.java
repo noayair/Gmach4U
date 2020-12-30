@@ -3,6 +3,7 @@ package Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.gmach4u.R;
@@ -57,6 +58,7 @@ public class ProductDetails extends AppCompatActivity {
         //set string
         Intent intent = getIntent();
         pId = intent.getStringExtra("key");
+
     }
 
     private void updateDetails() {
@@ -72,20 +74,23 @@ public class ProductDetails extends AppCompatActivity {
                         units.setText(p.getUnitsInStock());
                         desc.setText(p.getDescription());
                         burrow.setText(p.getBurrowTime());
-                        //set img
-                        String path = "Images/"+firebaseAuth.getUid()+"/"+pId;
-                        storageRef.child("Images/vZZQMEyyGHYRx3ORzIv1XtRL4jl2/ran");
-                        final long ONE_MEGABYTE = 1024 * 1024;
-                        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                            @Override public void onSuccess(byte[] bytes) {
-                                Toast.makeText(ProductDetails.this, "yes", Toast.LENGTH_SHORT).show();
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0, bytes .length);
-                                img.setImageBitmap(bitmap);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override public void onFailure(@NonNull Exception exception) { Toast.makeText(ProductDetails.this, "no", Toast.LENGTH_SHORT).show();}
-                        });
-                    } }
+                    }
+                }
+                //set img
+                if(img != null) {
+                    String path = "Images/" + firebaseAuth.getUid() + "/" + pId;
+                    final long ONE_MEGABYTE = (long) Math.pow(1024, 10);
+                    storageRef.child(path).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            img.setImageBitmap(bitmap);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) { }
+                    });
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

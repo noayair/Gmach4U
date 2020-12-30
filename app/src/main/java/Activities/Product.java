@@ -38,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Product extends AppCompatActivity implements View.OnClickListener{
@@ -46,7 +47,7 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
     private String name, description, units, burrowTime;
     private Button add, upload;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference userRef;
+    private DatabaseReference suppRef;
     private Uri imguri;
     private StorageTask uploadTask;
     private StorageReference storageRef;
@@ -74,7 +75,7 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         img = (ImageView) findViewById(R.id.ProductImage);
         //set firebase
         firebaseAuth= FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference();
+        suppRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid());
         storageRef = FirebaseStorage.getInstance().getReference("Images");
     }
 
@@ -121,10 +122,13 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         if(validate()) {
             // add obj to DB
             ProductItem productItem = new ProductItem(name, description, units, burrowTime);
-            userRef.child("Suppliers").child(firebaseAuth.getUid()).child("products").child(name).setValue(productItem);
+            DatabaseReference prodRef = suppRef.child("products").child(name);
+            prodRef.setValue(productItem);
             // add img to DB
-            String path = firebaseAuth.getUid() + "/" + name;
-            uploadTask = storageRef.child(path).putBytes(byteData);
+            if(byteData != null){
+                String path = firebaseAuth.getUid() + "/" + name;
+                uploadTask = storageRef.child(path).putBytes(byteData);
+            }
             //back to stock
             startActivity(new Intent(Product.this,GmachStockSupplier.class));
             finish();
@@ -135,28 +139,28 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         Toast.makeText(Product.this, m, Toast.LENGTH_SHORT).show();
     }
 
-    boolean result = false;
     private boolean validate(){
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        boolean isValid = true;
+        suppRef.child("products").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                DataSnapshot prodList = snapshot.child("Suppliers").child(firebaseAuth.getUid()).child("products");
-                for(DataSnapshot prod: prodList.getChildren()){
+                // for on the products
+                for(DataSnapshot prod: snapshot.getChildren()){
                     if(prod.getValue(ProductItem.class).getName().equals(name)){
-                        makeToast("you already have a product with this name");
-                        result = false;
+                        makeToast("this name is already exist! the old product will delete!");
                     }
                 }
-                result = true;
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            @Override public void onCancelled(@NonNull DatabaseError error) { }
         }); //end listener
-//        if(units.equals("UnitsInStock")) makeToast("please enter units in stock");
-//        if(burrowTime.equals("Burrow time(in days)")) makeToast("please enter burrow time");
 
-        return result;
+        if (units.equals("Units in stock")) {
+            makeToast("please enter units in stock");
+            isValid = false;
+        } else if (burrowTime.equals("Burrow time(in days)")) {
+            makeToast("please enter burrow time");
+            isValid = false;
+        }
+        return isValid;
     }
 }
