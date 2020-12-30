@@ -27,7 +27,6 @@ public class GmachStockClient extends AppCompatActivity{
     private ListView listView;
     private DatabaseReference myRef;
     private String supp_key;
-    private FirebaseAuth firebaseAuth;
     private ArrayList<String> prodItemName;
     private ArrayAdapter<String> arrayAdapter;
 
@@ -47,7 +46,6 @@ public class GmachStockClient extends AppCompatActivity{
         //set text
         listView = (ListView) findViewById(R.id.listViewItems);
         //set database
-        firebaseAuth= FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference()
                 .child("Suppliers").child(supp_key);
     }

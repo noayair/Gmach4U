@@ -39,6 +39,18 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
         setAdapter();
         showProducts();
     }
+
+    private void setUIViews(){
+        //set text
+        listView = (ListView) findViewById(R.id.ProductsList);
+        //set button
+        addProd = (Button) findViewById(R.id.AddProduct);
+        addProd.setOnClickListener((View.OnClickListener) this);
+        //set database
+        firebaseAuth= FirebaseAuth.getInstance();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Suppliers").child(firebaseAuth.getUid());
+    }
+
     private void setAdapter() {
         prodItemName = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, prodItemName);
@@ -61,28 +73,19 @@ public class GmachStockSupplier extends AppCompatActivity implements View.OnClic
                     prodItemName.add("You don't have products yet");
                     arrayAdapter.notifyDataSetChanged();
                 } else {
-                    for(DataSnapshot product: snapshot.child("products").getChildren()){
+                    for (DataSnapshot product : snapshot.child("products").getChildren()) {
                         ProductItem p = product.getValue(ProductItem.class);
                         prodItemName.add(p.getName());
                         arrayAdapter.notifyDataSetChanged();
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         }); //end listener
-    }
-    private void setUIViews(){
-        //set text
-        listView = (ListView) findViewById(R.id.ProductsList);
-        //set button
-        addProd = (Button) findViewById(R.id.AddProduct);
-        addProd.setOnClickListener((View.OnClickListener) this);
-        //set database
-        firebaseAuth= FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference().child("Suppliers").child(firebaseAuth.getUid());
     }
 
     @Override
