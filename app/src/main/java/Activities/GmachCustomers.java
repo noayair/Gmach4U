@@ -46,7 +46,6 @@ public class GmachCustomers extends AppCompatActivity {
         setContentView(R.layout.activity_gmach_customers);
         setUIViews();
         setList();
-        showProducts();
     }
 
     private void setUIViews(){
@@ -100,17 +99,4 @@ public class GmachCustomers extends AppCompatActivity {
         }); //end listener reserve ref
     }
 
-    private void showProducts() {
-//        it = reserveDetails.entrySet().iterator();
-//        while (it.hasNext())
-//        {
-//            HashMap<String, String> resultsMap = new HashMap<>();
-//            Map.Entry pair = (Map.Entry)it.next();
-//            resultsMap.put("First Line", pair.getKey().toString());
-//            resultsMap.put("Second Line", pair.getValue().toString());
-//            listItems.add(resultsMap);
-//        }
-
-//        listView.setAdapter(adapter);
-    }
 }
