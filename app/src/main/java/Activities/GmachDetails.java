@@ -4,22 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.gmach4u.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.EventListener;
 
@@ -28,11 +35,13 @@ import Adapters.Supplier;
 
 public class GmachDetails extends AppCompatActivity {
     private EditText GmachName, GmachAdress, GmachEmail, GmachOpeningHours,GmachPhone;
+    private ImageView img;
     private Button viewPrudocts;
     private Button chat;
     private Supplier s;
-    DatabaseReference ref;
-    RatingBar ratingBar;
+    private DatabaseReference ref;
+    private StorageReference storageRef;
+    private RatingBar ratingBar;
     private ImageButton call;
 
     @Override
@@ -109,6 +118,20 @@ public class GmachDetails extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+
+        //set img
+        String path = "Images/" + key + "/main";
+        final long ONE_MEGABYTE = (long) Math.pow(1024, 10);
+        storageRef.child(path).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                img.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) { }
+        });
     }//end on create
 
 
@@ -122,5 +145,7 @@ public class GmachDetails extends AppCompatActivity {
         viewPrudocts=(Button) findViewById(R.id.viewprudocts);
         chat=(Button) findViewById(R.id.chat1);
         call=(ImageButton) findViewById(R.id.callbtn);
+        img = (ImageView) findViewById(R.id.gmachImg);
+        storageRef = FirebaseStorage.getInstance().getReference();
     }
 }
