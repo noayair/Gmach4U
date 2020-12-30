@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,15 +34,11 @@ import Adapters.Supplier;
 public class MainSupplier extends AppCompatActivity  {
 
     private Button update, chat, stock, client;
-   private TextView titel;
- //   private String email, pass;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
-    private String userID;
     private ListView mListView;
-
     private static final String TAG = "Suppliers";
 
     @Override
@@ -50,7 +48,6 @@ public class MainSupplier extends AppCompatActivity  {
         setViews();
     }
     private void setViews(){
-        //   name = (TextView)findViewById(R.id.name_textview);
         update=(Button) findViewById(R.id.update);
         client=(Button) findViewById(R.id.customers);
         stock=(Button) findViewById(R.id.stock);
@@ -59,10 +56,8 @@ public class MainSupplier extends AppCompatActivity  {
 
         firebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-//        myRef = mFirebaseDatabase.getReference();
         myRef = mFirebaseDatabase.getReference()
                 .child("Suppliers").child(firebaseAuth.getUid());
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,11 +111,46 @@ public class MainSupplier extends AppCompatActivity  {
         }
     }
 
-
-
-
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    //************menu bar************
+
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(MainSupplier.this,loginActivity.class));
+    }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainSupplier.class);
+        startActivity(intent);
+    }
+
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, update_detalis_supplier.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
