@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import Adapters.Client;
 
-public class PrivateZone extends AppCompatActivity {
+public class PrivateZone extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "PrivateZone";
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth firebaseAuth;
@@ -44,8 +44,6 @@ public class PrivateZone extends AppCompatActivity {
     private ArrayList<String> showList;
     private ArrayAdapter<String> arrayAdapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +52,21 @@ public class PrivateZone extends AppCompatActivity {
         setAdapter();
         showDetails();
     }
+
+    private void setUIViews() {
+        //set text
+        mListView = (ListView) findViewById(R.id.listView);
+        myProfile = (TextView) findViewById(R.id.MyProfile);
+        //set buttons
+        update = (Button) findViewById(R.id.UpdateButton);
+        myProtucts = (Button) findViewById(R.id.MyProductsButton);
+        update.setOnClickListener((View.OnClickListener)this);
+        myProtucts.setOnClickListener((View.OnClickListener)this);
+        //set database
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference().child("Clients").child(firebaseAuth.getUid());
+    }//end setUIViews
 
     private void setAdapter() {
         showList = new ArrayList<>();
@@ -103,24 +116,19 @@ public class PrivateZone extends AppCompatActivity {
         });//end myRef
     }//end showDetails
 
-    private void setUIViews() {
-        //set text
-        mListView = (ListView) findViewById(R.id.listView);
-        myProfile = (TextView) findViewById(R.id.MyProfile);
-        //set buttons
-        update = (Button) findViewById(R.id.UpdateButton);
-        myProtucts = (Button) findViewById(R.id.MyProductsButton);
-        //set database
-        firebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference().child("Clients").child(firebaseAuth.getUid());
-        myProtucts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToProtucts();
-            }
-        });
-    }//end setUIViews
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.UpdateButton){
+            startActivity(new Intent(PrivateZone.this, UpdateDetailsClient.class));
+        }
+        if(v.getId() == R.id.MyProductsButton){
+            goToProtucts();
+        }
+    }
+    private void goToProtucts(){
+        Intent i = new Intent(PrivateZone.this, SearchHistory.class);
+        startActivity(i);
+    }
 
     public void onStart(){
         super.onStart();
@@ -137,12 +145,6 @@ public class PrivateZone extends AppCompatActivity {
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }//end toast
-
-    private void goToProtucts(){
-        Intent i = new Intent(PrivateZone.this, SearchHistory.class);
-        startActivity(i);
-    }
-
 
     //***********menu bar**************
     private void Logout(){

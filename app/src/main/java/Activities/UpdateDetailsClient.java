@@ -1,24 +1,11 @@
 package Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.UserData;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gmach4u.R;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,12 +13,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import Adapters.ProductItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import Adapters.Client;
 import Adapters.Supplier;
 
-
-public class update_detalis_supplier extends AppCompatActivity implements View.OnClickListener{
-    EditText sup_name, sup_open, sup_phone, sup_address;
+public class UpdateDetailsClient extends AppCompatActivity implements View.OnClickListener{
+    EditText sup_name, sup_phone;
     Button btnUpdate;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -39,24 +36,21 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_detalis_supplier);
+        setContentView(R.layout.activity_update_details_client);
         setUIViews();
         setDetails();
     }
 
     private void setUIViews() {
         //set edit text
-        sup_name = findViewById(R.id.sup_name);
-        sup_phone = findViewById(R.id.sup_phone);
-        sup_address = findViewById(R.id.sup_address);
-        sup_open = findViewById(R.id.OpeningTimeInput);
+        sup_name = findViewById(R.id.nameClient);
+        sup_phone = findViewById(R.id.phoneClient);
         //set button
-        btnUpdate =  findViewById(R.id.btnUpdate);
+        btnUpdate =  findViewById(R.id.updateClient);
         btnUpdate.setOnClickListener((View.OnClickListener)this);
         //set DB ref
         firebaseAuth= FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("Suppliers").child(firebaseAuth.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Clients").child(firebaseAuth.getUid());
     }
 
     private void setDetails() {
@@ -64,11 +58,9 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //snapshot is the supplier
-                Supplier s = snapshot.child("details").getValue(Supplier.class);
+                Client s = snapshot.child("details").getValue(Client.class);
                 sup_name.setText(s.getName());
-                sup_address.setText(s.getAddress());
                 sup_phone.setText(s.getPhone());
-                sup_open.setText(s.getOpeningTime());
             }
             @Override public void onCancelled(@NonNull DatabaseError error) { }
         });
@@ -76,7 +68,7 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnUpdate){
+        if(v.getId() == R.id.updateClient){
             updateDetails();
         }
     }
@@ -85,24 +77,18 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //snapshot is the supplier
+                //snapshot is the client
                 if (snapshot.exists()) {
-                    Supplier s = snapshot.child("details").getValue(Supplier.class);
-                    String uName, uPhone, uAddress,uOpen;
-
+                    Client s = snapshot.child("details").getValue(Client.class);
+                    String uName, uPhone;
                     uName = sup_name.getText().toString();
                     uPhone = sup_phone.getText().toString();
-                    uAddress = sup_address.getText().toString();
-                    uOpen = sup_open.getText().toString();
-
                     s.setName(uName);
                     s.setPhone(uPhone);
-                    s.setAddress(uAddress);
-                    s.setOpeningTime(uOpen);
                     databaseReference.child("details").setValue(s);
 
-                    Toast.makeText(update_detalis_supplier.this, "Update", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(update_detalis_supplier.this,MainSupplier.class));
+                    Toast.makeText(UpdateDetailsClient.this, "Update", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(UpdateDetailsClient.this,MainActivity.class));
                 }
             }
             @Override
@@ -115,7 +101,7 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
     private void Logout(){
         firebaseAuth.signOut();
         finish();
-        startActivity(new Intent(update_detalis_supplier.this,loginActivity.class));
+        startActivity(new Intent(UpdateDetailsClient.this,loginActivity.class));
     }
 
     public void openMain(){
@@ -148,4 +134,3 @@ public class update_detalis_supplier extends AppCompatActivity implements View.O
         return super.onOptionsItemSelected(item);
     }
 }
-
