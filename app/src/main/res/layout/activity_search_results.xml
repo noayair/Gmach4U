@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     tools:context="Activities.SearchResults">
 
 
@@ -19,9 +19,9 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/alfa_slab_one"
+            android:fontFamily="@font/montez_regular"
             android:text="Search Results"
-            android:textSize="36sp" />
+            android:textSize="55sp" />
 
         <ListView
             android:id="@+id/listView"

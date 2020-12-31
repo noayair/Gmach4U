@@ -6,74 +6,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     tools:context="Activities.MainSupplier">
 
     <TextView
         android:id="@+id/titel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montez_regular"
+        android:gravity="center"
         android:text="Hello! what do you want to do?"
-        android:textSize="36sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintVertical_bias="0.165" />
 
     <Button
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="175dp"
         android:text="update detalis"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20dp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintTop_toTopOf="@+id/titel"
+        app:layout_constraintVertical_bias="0.007" />
 
     <Button
         android:id="@+id/customers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
         android:text="Clients list"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20dp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/update"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
         android:text="stock"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20dp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585" />
+        app:layout_constraintTop_toTopOf="@+id/customers"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/chat"
         android:layout_width="196dp"
         android:layout_height="64dp"
+        android:layout_marginTop="148dp"
         android:text="chat with clients"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20dp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863" />
+        app:layout_constraintTop_toTopOf="@+id/stock"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

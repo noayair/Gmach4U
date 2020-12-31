@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/sky"
     tools:context="Activities.GmachStockSupplier">
 
     <ScrollView
@@ -20,18 +21,18 @@
                 android:id="@+id/MyProducts"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:fontFamily="@font/architects_daughter"
+                android:fontFamily="@font/montez_regular"
                 android:text="My Products"
-                android:textSize="36sp" />
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="55sp" />
 
             <Button
                 android:id="@+id/AddProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
-                android:fontFamily="@font/architects_daughter"
                 android:text="+ Add"
-                android:textColor="#121010"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="24sp" />
 
             <LinearLayout

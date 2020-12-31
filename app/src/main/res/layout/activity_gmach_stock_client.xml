@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/sky"
     tools:context="Activities.GmachStockClient"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
+        android:fontFamily="@font/montez_regular"
+        android:textColor="@color/cardview_dark_background"
         android:layout_height="62dp"
         android:text="Products"
-        android:textSize="36sp" />
+        android:textSize="55sp" />
 
     <ListView
         android:id="@+id/listViewItems"
