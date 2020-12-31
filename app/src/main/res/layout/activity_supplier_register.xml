@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     tools:context="Activities.ClientRegister"
     android:orientation="vertical">
 
@@ -24,10 +24,11 @@
                 android:id="@+id/SignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/alfa_slab_one"
+                android:fontFamily="@font/montez_regular"
                 android:gravity="center"
                 android:text="Register"
-                android:textSize="36sp" />
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="55sp" />
 
             <EditText
                 android:id="@+id/GmachNameInput"
@@ -36,7 +37,8 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Enter your gmach name" />
+                android:text="Enter your gmach name"
+                android:textColor="@color/cardview_dark_background" />
 
             <EditText
                 android:id="@+id/EmailInput"
@@ -45,7 +47,8 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:text="Enter Email" />
+                android:text="Enter Email"
+                android:textColor="@color/cardview_dark_background" />
 
             <EditText
                 android:id="@+id/PasswordInput"
@@ -54,7 +57,8 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="Enter Password" />
+                android:text="Enter Password"
+                android:textColor="@color/cardview_dark_background" />
 
             <EditText
                 android:id="@+id/PhoneNumberInput"
@@ -63,7 +67,8 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:inputType="phone"
-                android:text="Enter Phone Number" />
+                android:text="Enter Phone Number"
+                android:textColor="@color/cardview_dark_background" />
 
             <TextView
                 android:id="@+id/textView"
@@ -73,6 +78,7 @@
                 android:lineSpacingExtra="10sp"
                 android:text="Choose the category of your gmach"
                 android:textAllCaps="false"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="16sp" />
 
             <Spinner
@@ -88,6 +94,7 @@
                 android:lineSpacingExtra="10sp"
                 android:text="Choose the location in the country"
                 android:textAllCaps="false"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="16sp" />
 
             <Spinner
@@ -101,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Enter Address" />
+                android:text="Enter Address"
+                android:textColor="@color/cardview_dark_background" />
 
             <EditText
                 android:id="@+id/OpeningTimeInput"
@@ -109,7 +117,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Enter opening time" />
+                android:text="Enter opening time"
+                android:textColor="@color/cardview_dark_background" />
 
             <ImageView
                 android:id="@+id/suppImg"
@@ -122,21 +131,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Upload Image"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse"
                 app:icon="@android:drawable/ic_menu_upload" />
 
             <Button
                 android:id="@+id/signUpSupplier"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:fontFamily="@font/alfa_slab_one"
-                android:text="sign_up" />
+                android:text="sign_up"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse" />
 
             <Button
                 android:id="@+id/LoginRegist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Have an Account? Sign In"
-                android:textSize="14sp" />
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="14sp"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse" />
 
         </LinearLayout>
     </ScrollView>
