@@ -6,48 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/hands"
     tools:context="Activities.loginActivity">
 
-    <TextView
-        android:id="@+id/Info"
-        android:layout_width="349dp"
-        android:layout_height="89dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:fontFamily="@font/alfa_slab_one"
-        android:text="WELCOME                          To Gmach4U"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
 
     <Button
         android:id="@+id/login"
-        android:layout_width="211dp"
-        android:layout_height="75dp"
+        android:layout_width="215dp"
+        android:layout_height="69dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="87dp"
         android:text="Login"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20dp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602" />
+        app:layout_constraintTop_toTopOf="@+id/password"
+        app:layout_constraintVertical_bias="0.0"
+        app:rippleColor="@color/cardview_dark_background" />
 
     <EditText
         android:id="@+id/Email"
@@ -61,19 +44,21 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
+        android:layout_marginTop="217dp"
         android:layout_marginEnd="26dp"
         android:layout_marginRight="26dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
         android:inputType="textPersonName"
         android:text="Email"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/password"
@@ -85,45 +70,60 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="83dp"
         android:ems="10"
         android:fontFamily="@font/architects_daughter"
         android:inputType="textPersonName"
         android:text="Password"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437" />
-
+        app:layout_constraintTop_toTopOf="@+id/Email"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/viewprudocts"
-        android:layout_width="221dp"
-        android:layout_height="45dp"
+        android:layout_width="219dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="104dp"
         android:text="Register as client"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="14sp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
+        app:layout_constraintTop_toTopOf="@+id/login"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/supplierRegist"
-        android:layout_width="222dp"
-        android:layout_height="47dp"
+        android:layout_width="224dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="67dp"
         android:text="Register as supplier"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="14sp"
-        app:backgroundTint="#00FFFFFF"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewprudocts"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.807" />
+        app:layout_constraintVertical_bias="0.03"
+        app:srcCompat="@drawable/mylogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
