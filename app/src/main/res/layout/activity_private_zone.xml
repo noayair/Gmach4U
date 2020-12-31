@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     tools:context="Activities.PrivateZone">
 
 
@@ -14,15 +14,15 @@
         android:id="@+id/MyProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/architects_daughter"
+        android:fontFamily="@font/montez_regular"
         android:text="My profile"
-        android:textSize="36sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="55sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.024" />
 
     <ListView
         android:id="@+id/listView"
@@ -30,6 +30,7 @@
         android:layout_height="191dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/cardview_dark_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MyProfile"
         app:layout_constraintVertical_bias="0.073" />
@@ -40,12 +41,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:text="Update details"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/MyProductsButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.102" />
 
     <Button
         android:id="@+id/MyProductsButton"
@@ -53,11 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="218dp"
         android:text="My protucts"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/listView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.507" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

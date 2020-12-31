@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     android:orientation="vertical"
     tools:context="Activities.SearchHistory">
 
@@ -14,7 +14,7 @@
         android:id="@+id/MyProductsReserveclient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/architects_daughter"
+        android:fontFamily="@font/montez_regular"
         android:text="My reserve products"
         android:textSize="36sp" />
 
