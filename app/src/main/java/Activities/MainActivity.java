@@ -43,65 +43,31 @@ import Adapters.Supplier;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
-    private Spinner categorySelectSpinner;
-    private Spinner locationSelectSpinner;
+    private TextView displayName;
+    private Spinner categorySelectSpinner, locationSelectSpinner;
     private Button search_Button;
     private FirebaseAuth firebaseAuth;
-    private ArrayAdapter<String> categoriesAdapter,locationsAdapter, arrayAdapter;
-    private DatabaseReference myRef;
-    private DatabaseReference myRef1;
-    private AutoCompleteTextView txtSearch;
-    private ListView listView;
-    private ArrayList<String> keyList,showList ;
-    private ListView mListView;
-    private FirebaseDatabase mFirebaseDatabase;
+    private ArrayAdapter<String> categoriesAdapter,locationsAdapter;
+    private DatabaseReference suppRef,clientRef;
     private EditText searchByName;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViews();
-        setAdapter();
-        hello();
-    }
-
-    private void hello() {
-        myRef1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.hasChild("details")) {
-
-                } else {
-                    Client c = snapshot.child("details").getValue(Client.class);
-                    //display all the information
-                    Log.d(TAG, c.getName());
-                    showList.add("Hello " + c.getName());
-                    arrayAdapter.notifyDataSetChanged();
-                }
-            }//end onDataChange
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });//end myRef
     }
 
     private void setViews() {
         //set text
-        mListView = (ListView) findViewById(R.id.listView);
         searchByName = (EditText) findViewById(R.id.editTextTextPersonName);
+        displayName = (TextView) findViewById(R.id.cName);
         //set button
         search_Button = (Button)findViewById(R.id.search_button);
         search_Button.setOnClickListener((View.OnClickListener)this);
         //set firebase
         firebaseAuth=FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef1 = mFirebaseDatabase.getReference().child("Clients").child(firebaseAuth.getUid());
-        myRef = FirebaseDatabase.getInstance().getReference("Suppliers");
+        suppRef = FirebaseDatabase.getInstance().getReference("Suppliers");
         //set sppiner
         categorySelectSpinner = (Spinner) findViewById(R.id.mainActivity_category_spinner);
         categoriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categoriesArray));
@@ -112,6 +78,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         locationsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
         locationsAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         locationSelectSpinner.setAdapter(locationsAdapter);
+        //set hello name
+        clientRef = FirebaseDatabase.getInstance().getReference("Clients").child(firebaseAuth.getUid()).child("details");
+        clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String name =snapshot.getValue(Client.class).getName();
+                displayName.setText("Hello "+name+"!");
+            }
+            @Override public void onCancelled(@NonNull DatabaseError error) { }
+        });//end listener
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.search_button){
+            //start the search
+            gmachSearch();
+        }
     }
 
     private void gmachSearch() {
@@ -131,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             searchHash.put("name", name);
         }
         if(!searchHash.isEmpty()){
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            suppRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     //for on the suppliers
@@ -167,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //error!!!
             Toast.makeText(MainActivity.this, "Please select something!!", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     //*********menu bar**************
@@ -205,68 +188,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             openMain();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.search_button){
-            //start the search
-            gmachSearch();
-        }
-    }
-
-
-
-
-    //*************Hello, ___****************
-
-    private void setAdapter() {
-        showList = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, showList);
-        mListView.setAdapter(arrayAdapter);
-    }//end set adapter
-
-    private void showResults() {
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                //for on the clients
-                for (String key: keyList) {
-                    for(DataSnapshot d: snapshot.getChildren()){
-                        Client c = d.child("details").getValue(Client.class);
-//                        if (key.equals(c.getId())){
-                        showList.add("Hello, "+c.getName());
-                        arrayAdapter.notifyDataSetChanged();
-//                        }
-                    }
-                }
-                if (showList.isEmpty()) {
-                    showList.add("No results");
-                    arrayAdapter.notifyDataSetChanged();
-                }
-
-
-
-
-
-                Client c = snapshot.child("details").getValue(Client.class);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        }); //end listener
-    } //end showResults
-
-    private void setUIViews() {
-        //set text
-//        listView = (ListView) findViewById(R.id.listView1);
-        //set database
-        firebaseAuth=FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference("Clients");
-        //set list results
-        Intent intent = getIntent();
-        keyList = intent.getStringArrayListExtra("list");
     }
 }

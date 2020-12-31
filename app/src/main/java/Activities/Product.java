@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -162,5 +164,42 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
             isValid = false;
         }
         return isValid;
+    }
+    //************menu bar************
+
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(Product.this,loginActivity.class));
+    }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainSupplier.class);
+        startActivity(intent);
+    }
+
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, update_detalis_supplier.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gmach4U">
         <activity
+            android:name="Activities.UpdateDetailsClient"
+            android:label="@string/title_activity_update_details_client"
+            android:theme="@style/Theme.Gmach4U.NoActionBar"></activity>
+        <activity
             android:name="Activities.ProductDetailsClient"
             android:label="@string/title_activity_product_details_client"
             android:theme="@style/Theme.Gmach4U.NoActionBar" />

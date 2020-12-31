@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="#fcfcfc"
+    tools:context="Activities.update_detalis_supplier">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="40dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:text="Update details" />
+
+            <EditText
+                android:id="@+id/nameClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/phoneClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Phone" />
+
+            <Button
+                android:id="@+id/updateClient"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="40dp"
+                android:text="Update"
+                android:layout_marginBottom="10dp"
+                android:background="#000"
+                android:textColor="#fff"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmach4u.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,22 +32,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import Adapters.Client;
+import Adapters.ProductItem;
 import Adapters.Supplier;
 
 
-public class MainSupplier extends AppCompatActivity  {
-
+public class MainSupplier extends AppCompatActivity  implements View.OnClickListener{
+    private TextView displayName;
     private Button update, chat, stock, client;
-   private TextView titel;
- //   private String email, pass;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
-    private String userID;
-    private ListView mListView;
-
-    private static final String TAG = "Suppliers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,77 +50,83 @@ public class MainSupplier extends AppCompatActivity  {
         setViews();
     }
     private void setViews(){
-        //   name = (TextView)findViewById(R.id.name_textview);
+        //set button
         update=(Button) findViewById(R.id.update);
         client=(Button) findViewById(R.id.customers);
         stock=(Button) findViewById(R.id.stock);
         chat=(Button) findViewById(R.id.chat);
-        mListView = (ListView) findViewById(R.id.listView);
-
+        update.setOnClickListener((View.OnClickListener) this);
+        client.setOnClickListener((View.OnClickListener) this);
+        stock.setOnClickListener((View.OnClickListener) this);
+        chat.setOnClickListener((View.OnClickListener) this);
+        //set text
+        displayName = (TextView) findViewById(R.id.titel);
+        //set DB ref
         firebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-//        myRef = mFirebaseDatabase.getReference();
-        myRef = mFirebaseDatabase.getReference()
-                .child("Suppliers").child(firebaseAuth.getUid());
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef = mFirebaseDatabase.getReference().child("Suppliers").child(firebaseAuth.getUid()).child("details");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showData(snapshot);
+            public void onDataChange(DataSnapshot snapshot) {
+                String name =snapshot.getValue(Supplier.class).getName();
+                displayName.setText("Hello "+name+"! what do you want to do?");
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        update.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                startActivity(new Intent(MainSupplier.this,update_detalis_supplier.class));
-            }
-        });
-        client.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v) {
-                startActivity(new Intent(MainSupplier.this,GmachCustomers.class));
-            }
-        });
-        stock.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v) {
-                startActivity(new Intent(MainSupplier.this,GmachStockSupplier.class));
-            }
-        });
-        chat.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v) {
-                startActivity(new Intent(MainSupplier.this,Chat.class));
-            }
-        });
+            @Override public void onCancelled(@NonNull DatabaseError error) { }
+        });//end listener
     };
-    private void showData(DataSnapshot snapshot) {
-        if (!snapshot.hasChild("details")) {
-            toastMessage("There is no details");
-        } else {
-            Supplier s = snapshot.child("details").getValue(Supplier.class);
 
-            //display all the information
-            Log.d(TAG, "show data: name: " + s.getName());
-
-            ArrayList<String> array = new ArrayList<>();
-            array.add(s.getName());
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
-            mListView.setAdapter(adapter);
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.update){
+            startActivity(new Intent(MainSupplier.this,update_detalis_supplier.class));
         }
+        if(v.getId() == R.id.customers){
+            startActivity(new Intent(MainSupplier.this,GmachCustomers.class));
+        }
+        if(v.getId() == R.id.stock){
+            startActivity(new Intent(MainSupplier.this,GmachStockSupplier.class));
+        }
+        if(v.getId() == R.id.chat){
+            startActivity(new Intent(MainSupplier.this,Chat.class));
+        }
+
+    }
+    
+    //************menu bar************
+
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(MainSupplier.this,loginActivity.class));
     }
 
-
-
-
-    private void toastMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void openMain(){
+        Intent intent = new Intent(this, MainSupplier.class);
+        startActivity(intent);
     }
 
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, update_detalis_supplier.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -3,9 +3,7 @@ package Adapters;
 public class Client {
     String name,userId,email,phone;
 
-    public Client() {
-
-    }
+    public Client() { }
 
     public Client(String name, String email, String phone, String userId) {
         this.name = name;

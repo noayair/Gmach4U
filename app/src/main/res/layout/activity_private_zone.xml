@@ -19,22 +19,20 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="409dp"
         android:layout_height="191dp"
-        android:layout_marginTop="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/MyProfile"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/MyProfile"
+        app:layout_constraintVertical_bias="0.073" />
 
     <Button
         android:id="@+id/UpdateButton"
@@ -47,7 +45,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/MyProductsButton"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/MyProductsButton"

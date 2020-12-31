@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,9 +38,8 @@ public class GmachCustomers extends AppCompatActivity {
     private HashMap<String, String> reserveDetails;
     private List<HashMap<String, String>> listItems;
     private SimpleAdapter adapter;
-    private Iterator it;
     private DatabaseReference prodRef, reserveRef, clientRef;
-    private FirebaseAuth fireBaseAuth;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,11 @@ public class GmachCustomers extends AppCompatActivity {
                 new String[]{"First Line", "Second Line"},
                 new int[]{R.id.text1, R.id.text2});
         //set database ref
-        fireBaseAuth = FirebaseAuth.getInstance();
-        reserveRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(fireBaseAuth.getUid()).child("reserves");
-        prodRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(fireBaseAuth.getUid()).child("products");
+        firebaseAuth = FirebaseAuth.getInstance();
+        reserveRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("reserves");
+        prodRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(firebaseAuth.getUid()).child("products");
         clientRef = FirebaseDatabase.getInstance().getReference("Clients");
-        //
-        it = reserveDetails.entrySet().iterator();
+        //set adapter
         listView.setAdapter(adapter);
     }
 
@@ -97,6 +97,43 @@ public class GmachCustomers extends AppCompatActivity {
             }
             @Override public void onCancelled(@NonNull DatabaseError error) { }
         }); //end listener reserve ref
+    }
+
+    //************menu bar************
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(GmachCustomers.this,loginActivity.class));
+    }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainSupplier.class);
+        startActivity(intent);
+    }
+
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, update_detalis_supplier.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

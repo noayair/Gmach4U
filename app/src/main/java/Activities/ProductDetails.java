@@ -21,6 +21,8 @@ import com.google.firebase.storage.StorageReference;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,4 +99,41 @@ public class ProductDetails extends AppCompatActivity {
         });//end listener
     }//end update
 
+//************menu bar************
+
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ProductDetails.this,loginActivity.class));
+    }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainSupplier.class);
+        startActivity(intent);
+    }
+
+    public void openPrivateZone(){
+        Intent intent = new Intent(this, update_detalis_supplier.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.main_logoutMenu){
+            Logout();
+        }
+        if(item.getItemId() == R.id.personal_profile){
+            openPrivateZone();
+        }
+        if(item.getItemId() == R.id.Home){
+            openMain();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
