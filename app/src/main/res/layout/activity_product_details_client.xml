@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/sky"
     tools:context="Activities.ProductDetailsClient">
 
     <TextView
@@ -13,11 +14,11 @@
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:fontFamily="@font/architects_daughter"
+        android:fontFamily="@font/montez_regular"
         android:inputType="textPersonName"
         android:paddingLeft="80px"
         android:text="Product Name"
-        android:textSize="30sp"
+        android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,30 +34,31 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcname"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="159dp"
-        android:layout_height="17dp"
-        android:fontFamily="@font/architects_daughter"
+        android:layout_width="318dp"
+        android:layout_height="37dp"
         android:text="description:"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcImg"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/pcdesc"
-        android:layout_width="229dp"
-        android:layout_height="181dp"
+        android:layout_width="315dp"
+        android:layout_height="158dp"
+        android:background="#FFFFFF"
         android:ems="10"
-        android:fontFamily="@font/architects_daughter"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:singleLine="false"
         android:text="description"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,75 +67,74 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="102dp"
-        android:layout_height="19dp"
-        android:fontFamily="@font/architects_daughter"
+        android:layout_width="315dp"
+        android:layout_height="31dp"
         android:text="units in stock:"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcdesc"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <TextView
         android:id="@+id/pcunits"
-        android:layout_width="124dp"
-        android:layout_height="34dp"
+        android:layout_width="305dp"
+        android:layout_height="32dp"
+        android:background="#FFFFFF"
         android:ems="10"
-        android:fontFamily="@font/architects_daughter"
+        android:gravity="left"
         android:inputType="number"
-        android:paddingLeft="50px"
-        android:paddingRight="50px"
         android:text="Units in stock"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="163dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/architects_daughter"
+        android:layout_width="313dp"
+        android:layout_height="32dp"
         android:text="time to burrow(in days)"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcunits"
-        app:layout_constraintVertical_bias="0.203" />
+        app:layout_constraintVertical_bias="0.069" />
 
     <TextView
         android:id="@+id/pcburrowTime"
-        android:layout_width="282dp"
-        android:layout_height="39dp"
-        android:fontFamily="@font/architects_daughter"
+        android:layout_width="283dp"
+        android:layout_height="27dp"
+        android:background="#FFFFFF"
+        android:gravity="left"
         android:text="time to burrow(in days)"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/pcreserve"
         android:layout_width="139dp"
         android:layout_height="53dp"
-        android:fontFamily="@font/architects_daughter"
         android:text="Reserve"
-        android:textColor="#100A0A"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="18sp"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pcburrowTime"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.394" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
