@@ -14,4 +14,5 @@
     <string name="title_activity_upload_image">UploadImage</string>
     <string name="title_activity_resreve_products_client">ResreveProductsClient</string>
     <string name="title_activity_update_details_client">UpdateDetailsClient</string>
+    <string name="title_activity_to_delete">toDelete</string>
 </resources>

@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="265dp"
+        android:layout_width="260dp"
         android:layout_height="42dp"
         android:layout_marginTop="3dp"
         android:text="time to burrow(in days)"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/pname"
-        android:layout_width="257dp"
-        android:layout_height="65dp"
+        android:layout_width="255dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:fontFamily="@font/montez_regular"
         android:inputType="textPersonName"
@@ -33,13 +33,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pImg"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049" />
 
     <TextView
         android:id="@+id/pdesc"
-        android:layout_width="265dp"
-        android:layout_height="117dp"
+        android:layout_width="260dp"
+        android:layout_height="75dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="260dp"
         android:background="#FFFFFF"
@@ -57,25 +57,25 @@
 
     <TextView
         android:id="@+id/punits"
-        android:layout_width="258dp"
-        android:layout_height="35dp"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
         android:layout_marginTop="3dp"
-        android:ems="10"
         android:background="#FFFFFF"
+        android:ems="10"
         android:gravity="left"
         android:inputType="number"
         android:text="Units in stock"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="37dp"
         android:layout_marginTop="5dp"
         android:text="description:"
@@ -84,29 +84,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pname"
+        app:layout_constraintTop_toBottomOf="@+id/pImg"
         app:layout_constraintVertical_bias="0.036" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="265dp"
+        android:layout_width="260dp"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:text="units in stock:"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pdesc"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <TextView
         android:id="@+id/pburrowTime"
-        android:layout_width="261dp"
-        android:layout_height="32dp"
-        android:gravity="left"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
         android:background="#FFFFFF"
+        android:gravity="left"
         android:text="time to burrow(in days)"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,14 +116,14 @@
 
     <ImageView
         android:id="@+id/pImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="81dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/pname"
+        app:layout_constraintVertical_bias="0.024"
+        tools:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
