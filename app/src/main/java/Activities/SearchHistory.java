@@ -77,11 +77,12 @@ public class SearchHistory extends AppCompatActivity {
                             clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override public void onDataChange(DataSnapshot snapshot) {
                                     String cName = snapshot.getValue(Client.class).getName();
-                                    reserveDetails.put("product name: "+pName,"supplier name: "+ cName);
+                                    String secondL = "supplier: "+cName+", return date:"+res.getReturnDate();
+                                    reserveDetails.put(pName,secondL);
                                     //
                                     HashMap<String, String> resultsMap = new HashMap<>();
-                                    resultsMap.put("First Line", "product name: "+pName);
-                                    resultsMap.put("Second Line", "supplier name: "+ cName);
+                                    resultsMap.put("First Line", pName);
+                                    resultsMap.put("Second Line", secondL);
                                     listItems.add(resultsMap);
                                     adapter.notifyDataSetChanged();
                                 }

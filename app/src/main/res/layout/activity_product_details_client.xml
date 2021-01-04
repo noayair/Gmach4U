@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <ImageView
         android:id="@+id/pcImg"
@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="318dp"
+        android:layout_width="260dp"
         android:layout_height="37dp"
         android:text="description:"
         android:textSize="25sp"
@@ -50,7 +50,7 @@
 
     <TextView
         android:id="@+id/pcdesc"
-        android:layout_width="315dp"
+        android:layout_width="260dp"
         android:layout_height="158dp"
         android:background="#FFFFFF"
         android:ems="10"
@@ -67,20 +67,20 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="315dp"
+        android:layout_width="260dp"
         android:layout_height="31dp"
         android:text="units in stock:"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcdesc"
         app:layout_constraintVertical_bias="0.051" />
 
     <TextView
         android:id="@+id/pcunits"
-        android:layout_width="305dp"
+        android:layout_width="260dp"
         android:layout_height="32dp"
         android:background="#FFFFFF"
         android:ems="10"
@@ -90,27 +90,27 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="313dp"
+        android:layout_width="260dp"
         android:layout_height="32dp"
         android:text="time to burrow(in days)"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pcunits"
         app:layout_constraintVertical_bias="0.069" />
 
     <TextView
         android:id="@+id/pcburrowTime"
-        android:layout_width="283dp"
+        android:layout_width="260dp"
         android:layout_height="27dp"
         android:background="#FFFFFF"
         android:gravity="left"
@@ -118,7 +118,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.0" />

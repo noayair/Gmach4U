@@ -40,6 +40,10 @@ import Adapters.ReserveProduct;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ProductDetailsClient extends AppCompatActivity implements View.OnClickListener{
     private TextView name, units, desc, burrow;
     private Button reserve;
@@ -51,7 +55,6 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
     private ProductItem pi;
     //
     private Context mContext;
-    private Activity mActivity;
     private ConstraintLayout mLayout;
     private PopupWindow mPopupWindow;
 
@@ -74,7 +77,7 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
         //set button
         reserve = (Button) findViewById(R.id.pcreserve);
         reserve.setOnClickListener((View.OnClickListener) this);
-        //set string
+        //set id
         Intent intent = getIntent();
         String sp[] = intent.getStringExtra("key").split("pKey:");
         suppId = sp[0];
@@ -86,7 +89,6 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
         storageRef = FirebaseStorage.getInstance().getReference();
         //set popup
         mContext = getApplicationContext();
-        mActivity = ProductDetailsClient.this;
         mLayout = (ConstraintLayout) findViewById(R.id.rl);
     }// end set view
 
@@ -122,7 +124,13 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
     private void reserveProduct(){
         int unitsOfProd = Integer.parseInt(pi.getUnitsInStock());
         if(unitsOfProd > 0) {
-            ReserveProduct rp = new ReserveProduct(prodId, suppId, firebaseAuth.getUid());
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String resDate = dateFormat.format(cal.getTime());
+            int burrowDays = Integer.parseInt(burrow.getText().toString());
+            cal.add(Calendar.DAY_OF_YEAR,burrowDays);
+            String returnDate = dateFormat.format(new Date(cal.getTimeInMillis()));
+            ReserveProduct rp = new ReserveProduct(prodId, suppId, firebaseAuth.getUid(), resDate,returnDate);
             String id = rp.getId();
             //add product to client list
             mainRef.child("Clients").child(firebaseAuth.getUid()).child("reserves").child(id).setValue(rp);
