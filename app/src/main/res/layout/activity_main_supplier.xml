@@ -72,20 +72,6 @@
         app:layout_constraintTop_toTopOf="@+id/customers"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/chat"
-        android:layout_width="226dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="148dp"
-        android:text="chat with clients"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="20dp"
-        app:backgroundTint="?android:attr/textColorSecondaryInverse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/stock"
-        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

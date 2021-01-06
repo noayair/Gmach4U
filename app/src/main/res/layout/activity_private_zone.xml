@@ -55,7 +55,7 @@
         android:layout_width="158dp"
         android:layout_height="49dp"
         android:layout_marginTop="218dp"
-        android:text="My protucts"
+        android:text="My products"
         android:textColor="@color/cardview_dark_background"
         app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
