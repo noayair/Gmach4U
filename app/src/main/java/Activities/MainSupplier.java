@@ -54,11 +54,10 @@ public class MainSupplier extends AppCompatActivity  implements View.OnClickList
         update=(Button) findViewById(R.id.update);
         client=(Button) findViewById(R.id.customers);
         stock=(Button) findViewById(R.id.stock);
-        chat=(Button) findViewById(R.id.chat);
+
         update.setOnClickListener((View.OnClickListener) this);
         client.setOnClickListener((View.OnClickListener) this);
         stock.setOnClickListener((View.OnClickListener) this);
-        chat.setOnClickListener((View.OnClickListener) this);
         //set text
         displayName = (TextView) findViewById(R.id.titel);
         //set DB ref
@@ -86,9 +85,7 @@ public class MainSupplier extends AppCompatActivity  implements View.OnClickList
         if(v.getId() == R.id.stock){
             startActivity(new Intent(MainSupplier.this,GmachStockSupplier.class));
         }
-        if(v.getId() == R.id.chat){
-            startActivity(new Intent(MainSupplier.this,Chat.class));
-        }
+
 
     }
     
