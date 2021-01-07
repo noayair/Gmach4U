@@ -68,30 +68,40 @@ public class SearchHistory extends AppCompatActivity {
     private void setList() {
         reserveRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(DataSnapshot snapshot) {
-                for(DataSnapshot reserve: snapshot.getChildren()){
-                    ReserveProduct res = reserve.getValue(ReserveProduct.class);
-                    //get prod name
-                    prodRef.child(res.getSupplierId()).child("products").child(res.getProductId()).addValueEventListener(new ValueEventListener() {
-                        @Override public void onDataChange(DataSnapshot snapshot) {
-                            String pName = snapshot.getValue(ProductItem.class).getName();
-                            clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override public void onDataChange(DataSnapshot snapshot) {
-                                    String cName = snapshot.getValue(Client.class).getName();
-                                    String secondL = "supplier: "+cName+", return date:"+res.getReturnDate();
-                                    reserveDetails.put(pName,secondL);
-                                    //
-                                    HashMap<String, String> resultsMap = new HashMap<>();
-                                    resultsMap.put("First Line", pName);
-                                    resultsMap.put("Second Line", secondL);
-                                    listItems.add(resultsMap);
-                                    adapter.notifyDataSetChanged();
-                                }
-                                @Override public void onCancelled(@NonNull DatabaseError error) { }
-                            }); //end listener client ref
-                        }
-                        @Override public void onCancelled(@NonNull DatabaseError error) { }
-                    }); //end listener prod ref
-                    //get client name
+                if(snapshot.exists()){
+                    for (DataSnapshot reserve : snapshot.getChildren()) {
+                        ReserveProduct res = reserve.getValue(ReserveProduct.class);
+                        //get prod name
+                        prodRef.child(res.getSupplierId()).child("products").child(res.getProductId()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                String pName = snapshot.getValue(ProductItem.class).getName();
+                                clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        String cName = snapshot.getValue(Client.class).getName();
+                                        String secondL = "supplier: " + cName + ", return date:" + res.getReturnDate();
+                                        reserveDetails.put(pName, secondL);
+                                        //
+                                        HashMap<String, String> resultsMap = new HashMap<>();
+                                        resultsMap.put("First Line", pName);
+                                        resultsMap.put("Second Line", secondL);
+                                        listItems.add(resultsMap);
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                }); //end listener client ref
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        }); //end listener prod ref
+                        //get client name
+                    }
                 }
             }
             @Override public void onCancelled(@NonNull DatabaseError error) { }
