@@ -39,15 +39,15 @@ import java.io.IOException;
 public class SupplierRegister extends AppCompatActivity implements View.OnClickListener{
     private  EditText userName, userPassword, userEmail,userPhone, userAddress, userOpeningTime;
     private ImageView img;
-    private Button signUpButton,LogInButton, upImgButton;
+    private Button signUpButton, upImgButton, cameraButton;
     private Spinner userCategory, userLocation;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference myRef;
     private String name, email, password, phone,category, location, address, openingTime;
-    private Uri imguri;
     private StorageTask uploadTask;
     private StorageReference storageRef;
     private static final int GET_FROM_GALLERY = 3;
+    private static final int GET_FROM_CAMERA = 0;
     byte[] byteData;
 
     @Override
@@ -67,10 +67,10 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         userOpeningTime= (EditText) findViewById(R.id.OpeningTimeInput);
         //set button
         signUpButton=(Button) findViewById(R.id.signUpSupplier);
-        LogInButton=(Button) findViewById(R.id.LoginRegist);
+        cameraButton=(Button) findViewById(R.id.takePicture);
         upImgButton = (Button) findViewById(R.id.uploadImg);
         signUpButton.setOnClickListener((View.OnClickListener) this);
-        LogInButton.setOnClickListener((View.OnClickListener) this);
+        cameraButton.setOnClickListener((View.OnClickListener) this);
         upImgButton.setOnClickListener((View.OnClickListener) this);
         //set imageView
         img = (ImageView) findViewById(R.id.suppImg);
@@ -87,6 +87,23 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.locationsArray));
         userLocation.setAdapter(locationsAdapter);
     }//end setUIViews
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.signUpSupplier) {
+            signUp();
+        }
+        if(v.getId() == R.id.uploadImg){
+            if (uploadTask != null && uploadTask.isInProgress())
+                makeToast("upload in progress");
+            else chooseUploadImg();
+        }
+        if(v.getId() == R.id.takePicture){
+            if (uploadTask != null && uploadTask.isInProgress())
+                makeToast("upload in progress");
+            else takePicture();
+        }
+    }//end onClick
 
     private void signUp(){
         name = userName.getText().toString();
@@ -125,43 +142,35 @@ public class SupplierRegister extends AppCompatActivity implements View.OnClickL
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(i, GET_FROM_GALLERY);
     }//end up img
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.signUpSupplier) {
-            signUp();
-        }
-        else if(v.getId() == R.id.LoginRegist){
-            startActivity(new Intent(SupplierRegister.this,loginActivity.class));
-        }
-        else if(v.getId() == R.id.uploadImg){
-            if (uploadTask != null && uploadTask.isInProgress()){
-                makeToast("upload in progress");
-            } else {
-                chooseUploadImg();
-            }
-        }
-    }//end onClick
-    private String getExtension (Uri uri){
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
+    private void takePicture(){
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(i, GET_FROM_CAMERA);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==GET_FROM_GALLERY && resultCode == RESULT_OK) {
-            imguri = data.getData();
-            img.setImageURI(imguri);
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byteData = baos.toByteArray();
+        if(resultCode == RESULT_OK) {
+            if (requestCode == GET_FROM_CAMERA) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                img.setImageBitmap(bitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byteData = stream.toByteArray();
             }
-            catch (FileNotFoundException e) { e.printStackTrace();}
-            catch (IOException e) { e.printStackTrace();}
+            if(requestCode == GET_FROM_GALLERY){
+                Uri imguri = data.getData();
+                img.setImageURI(imguri);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byteData = baos.toByteArray();
+                }
+                catch (FileNotFoundException e) { e.printStackTrace();}
+                catch (IOException e) { e.printStackTrace();}
+            }
         }
     }// end on act result
 

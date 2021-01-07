@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="233dp">
+        tools:layout_editor_absoluteX="-119dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,34 +19,48 @@
 
             <ImageView
                 android:id="@+id/ProductImage"
-                android:layout_width="137dp"
-                android:layout_height="100dp"
+                android:layout_width="162dp"
+                android:layout_height="110dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.049"
+                app:layout_constraintVertical_bias="0.063"
                 tools:srcCompat="@color/teal_700" />
 
             <Button
                 android:id="@+id/productUpImg"
-                android:layout_width="132dp"
-                android:layout_height="79dp"
+                android:layout_width="71dp"
+                android:layout_height="50dp"
                 android:textColor="@color/cardview_dark_background"
                 app:backgroundTint="?android:attr/textColorSecondaryInverse"
                 app:icon="@android:drawable/ic_menu_upload"
-                app:layout_constraintBottom_toBottomOf="@+id/ProductImage"
-                app:layout_constraintEnd_toEndOf="@+id/ProductImage"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/ProductImage"
-                app:layout_constraintTop_toTopOf="@+id/ProductImage"
-                app:layout_constraintVertical_bias="0.428" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.367"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProductImage"
+                app:layout_constraintVertical_bias="0.057" />
+
+            <Button
+                android:id="@+id/productCamera"
+                android:layout_width="71dp"
+                android:layout_height="50dp"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse"
+                app:icon="@android:drawable/ic_menu_camera"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.635"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProductImage"
+                app:layout_constraintVertical_bias="0.057" />
 
             <EditText
                 android:id="@+id/ProductName"
-                android:layout_width="351dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:paddingLeft="80px"
@@ -56,14 +70,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ProductImage"
+                app:layout_constraintTop_toBottomOf="@+id/productUpImg"
                 app:layout_constraintVertical_bias="0.0" />
 
             <EditText
                 android:id="@+id/ProductDescription"
-                android:layout_width="343dp"
-                android:layout_height="88dp"
-                android:layout_marginTop="22dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:gravity="start|top|center"
                 android:inputType="textMultiLine"
@@ -80,9 +94,9 @@
 
             <EditText
                 android:id="@+id/UnitsInStock"
-                android:layout_width="351dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="50dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="number"
                 android:paddingLeft="180px"
@@ -91,16 +105,16 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ProductDescription"
                 app:layout_constraintVertical_bias="0.0" />
 
             <EditText
                 android:id="@+id/DaysToBurrow"
-                android:layout_width="339dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="50dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="number"
                 android:text="Burrow time(in days)"
@@ -108,6 +122,7 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/UnitsInStock"
                 app:layout_constraintVertical_bias="0.0" />
@@ -116,7 +131,7 @@
                 android:id="@+id/AddTheProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="25dp"
                 android:text="Add"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="24sp"

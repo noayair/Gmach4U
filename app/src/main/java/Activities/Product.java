@@ -47,13 +47,13 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
     private EditText prod_name, prod_description, prod_units, prod_burrowTime;
     private ImageView img;
     private String name, description, units, burrowTime;
-    private Button add, upload;
+    private Button add, upload, camera;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference suppRef;
-    private Uri imguri;
     private StorageTask uploadTask;
     private StorageReference storageRef;
     private static final int GET_FROM_GALLERY = 3;
+    private static final int GET_FROM_CAMERA = 0;
     byte[] byteData;
 
     @Override
@@ -71,8 +71,10 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         //set button
         add = (Button) findViewById(R.id.AddTheProduct);
         upload = (Button) findViewById(R.id.productUpImg);
+        camera = (Button) findViewById(R.id.productCamera);
         add.setOnClickListener((View.OnClickListener) this);
         upload.setOnClickListener((View.OnClickListener) this);
+        camera.setOnClickListener((View.OnClickListener) this);
         //set img
         img = (ImageView) findViewById(R.id.ProductImage);
         //set firebase
@@ -85,33 +87,49 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if(v.getId() == R.id.productUpImg){
             if (uploadTask != null && uploadTask.isInProgress()) makeToast("upload in progress");
-            else chooseUploadImg();
+            else uploadImage();
+        }
+        if(v.getId() == R.id.productCamera){
+            if (uploadTask != null && uploadTask.isInProgress()) makeToast("upload in progress");
+            else takePicture();
         }
         if(v.getId() == R.id.AddTheProduct){
             addTheProduct();
         }
     }
 
-    private void chooseUploadImg() {
+    private void uploadImage() {
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(i, GET_FROM_GALLERY);
     }
-
+    private void takePicture(){
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(i, GET_FROM_GALLERY);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==GET_FROM_GALLERY && resultCode == RESULT_OK) {
-            imguri = data.getData();
-            img.setImageURI(imguri);
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byteData = baos.toByteArray();
+        if(resultCode == RESULT_OK) {
+            if (requestCode == GET_FROM_CAMERA) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                img.setImageBitmap(bitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byteData = stream.toByteArray();
             }
-            catch (FileNotFoundException e) { e.printStackTrace();}
-            catch (IOException e) { e.printStackTrace();}
+            if(requestCode == GET_FROM_GALLERY){
+                Uri imguri = data.getData();
+                img.setImageURI(imguri);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byteData = baos.toByteArray();
+                }
+                catch (FileNotFoundException e) { e.printStackTrace();}
+                catch (IOException e) { e.printStackTrace();}
+            }
         }
     }// end on act result
 
@@ -137,24 +155,8 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void makeToast(String m){
-        Toast.makeText(Product.this, m, Toast.LENGTH_SHORT).show();
-    }
-
     private boolean validate(){
         boolean isValid = true;
-        suppRef.child("products").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                // for on the products
-                for(DataSnapshot prod: snapshot.getChildren()){
-                    if(prod.getValue(ProductItem.class).getName().equals(name)){
-                        makeToast("this name is already exist! the old product will delete!");
-                    }
-                }
-            }
-            @Override public void onCancelled(@NonNull DatabaseError error) { }
-        }); //end listener
 
         if (units.equals("Units in stock")) {
             makeToast("please enter units in stock");
@@ -165,6 +167,11 @@ public class Product extends AppCompatActivity implements View.OnClickListener{
         }
         return isValid;
     }
+
+    private void makeToast(String m){
+        Toast.makeText(Product.this, m, Toast.LENGTH_SHORT).show();
+    }
+
     //************menu bar************
 
     private void Logout(){
