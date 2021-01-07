@@ -136,20 +136,20 @@
                 app:icon="@android:drawable/ic_menu_upload" />
 
             <Button
+                android:id="@+id/takePicture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take Picture"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse"
+                app:icon="@android:drawable/ic_menu_camera" />
+
+            <Button
                 android:id="@+id/signUpSupplier"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="sign_up"
                 android:textColor="@color/cardview_dark_background"
-                app:backgroundTint="?android:attr/textColorSecondaryInverse" />
-
-            <Button
-                android:id="@+id/LoginRegist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Have an Account? Sign In"
-                android:textColor="@color/cardview_dark_background"
-                android:textSize="14sp"
                 app:backgroundTint="?android:attr/textColorSecondaryInverse" />
 
         </LinearLayout>
