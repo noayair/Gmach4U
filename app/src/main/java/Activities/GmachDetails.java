@@ -37,7 +37,7 @@ public class GmachDetails extends AppCompatActivity {
     private EditText GmachName, GmachAdress, GmachEmail, GmachOpeningHours,GmachPhone;
     private ImageView img;
     private Button viewPrudocts;
-    private Button chat;
+  //  private Button chat;
     private Supplier s;
     private DatabaseReference ref;
     private StorageReference storageRef;
@@ -95,12 +95,12 @@ public class GmachDetails extends AppCompatActivity {
                 Toast.makeText(GmachDetails.this,messege,Toast.LENGTH_SHORT).show();
             }
         });
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(GmachDetails.this,Chat.class));
-            }
-        });
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(GmachDetails.this,Chat.class));
+//            }
+//        });
         viewPrudocts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +143,7 @@ public class GmachDetails extends AppCompatActivity {
         GmachPhone= (EditText) findViewById(R.id.gPhone);
         GmachName = (EditText) findViewById(R.id.gmachName);
         viewPrudocts=(Button) findViewById(R.id.viewprudocts);
-        chat=(Button) findViewById(R.id.chat1);
+   //     chat=(Button) findViewById(R.id.chat1);
         call=(ImageButton) findViewById(R.id.callbtn);
         img = (ImageView) findViewById(R.id.gmachImg);
         storageRef = FirebaseStorage.getInstance().getReference();

@@ -178,19 +178,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/chat1"
-        android:layout_width="137dp"
-        android:layout_height="48dp"
-        android:text="chat"
-        android:textColor="@color/cardview_dark_background"
-        app:backgroundTint="?android:attr/textColorSecondaryInverse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
+<!--    <Button-->
+<!--        android:id="@+id/chat1"-->
+<!--        android:layout_width="137dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:text="chat"-->
+<!--        android:textColor="@color/cardview_dark_background"-->
+<!--        app:backgroundTint="?android:attr/textColorSecondaryInverse"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.894"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.673" />-->
 
     <Button
         android:id="@+id/viewprudocts"
