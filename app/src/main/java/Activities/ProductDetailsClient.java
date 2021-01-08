@@ -54,9 +54,7 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
     private String suppId, prodId;
     private ProductItem pi;
     //
-    private Context mContext;
-    private ConstraintLayout mLayout;
-    private PopupWindow mPopupWindow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +85,7 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
         mainRef = FirebaseDatabase.getInstance().getReference();
         suppRef = FirebaseDatabase.getInstance().getReference("Suppliers").child(suppId).child("products").child(prodId);
         storageRef = FirebaseStorage.getInstance().getReference();
-        //set popup
-        mContext = getApplicationContext();
-        mLayout = (ConstraintLayout) findViewById(R.id.rl);
+
     }// end set view
 
     private void updateDetails() {
@@ -139,26 +135,10 @@ public class ProductDetailsClient extends AppCompatActivity implements View.OnCl
             //update the units in stock
             pi.setUnitsInStock(Integer.toString(--unitsOfProd));
             mainRef.child("Suppliers").child(suppId).child("products").child(prodId).setValue(pi);
-            // popup window
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View customView = inflater.inflate(R.layout.activity_after_reserve,null);
-            mPopupWindow = new PopupWindow(
-                    customView,
-                    LayoutParams.WRAP_CONTENT,
-                    LayoutParams.WRAP_CONTENT
-            );
-            if(Build.VERSION.SDK_INT>=21){
-                mPopupWindow.setElevation(5.0f);
-            }
-            ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-            closeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Dismiss the popup window
-                    mPopupWindow.dismiss();
-                }
-            });
-            mPopupWindow.showAtLocation(mLayout, Gravity.CENTER,0,0);
+
+            Dialog dialog=new Dialog();
+            dialog.show(getSupportFragmentManager(),"Dialog");
+
         }
         else {
             makeToast("there is no enough units in stock!");
