@@ -2,8 +2,150 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/sky"
     tools:context="Activities.PrivateZone">
 
+
+    <TextView
+        android:id="@+id/MyProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montez_regular"
+        android:text="My profile"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="55sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="409dp"
+        android:layout_height="191dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/cardview_dark_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MyProfile"
+        app:layout_constraintVertical_bias="0.073" />
+
+    <Button
+        android:id="@+id/UpdateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="Update details"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/MyProductsButton"
+        app:layout_constraintVertical_bias="0.102" />
+
+    <Button
+        android:id="@+id/MyProductsButton"
+        android:layout_width="158dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="218dp"
+        android:text="My products"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listView"
+        app:layout_constraintVertical_bias="0.507" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:id="@+id/city"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:layout_gravity="center"-->
+    <!--    android:background="@drawable/city"-->
+    <!--    tools:context="Activities.PrivateZone">-->
+
+
+    <!--&lt;!&ndash;    <ListView&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:id="@+id/listView"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintHorizontal_bias="0.0"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        tools:layout_editor_absoluteY="-188dp" />&ndash;&gt;-->
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/MyProfile"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/architects_daughter"-->
+    <!--        android:text="My profile"-->
+    <!--        android:textSize="36sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.498"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.196" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/myProfileName"-->
+    <!--        android:layout_width="266dp"-->
+    <!--        android:layout_height="37dp"-->
+    <!--        android:layout_marginTop="98dp"-->
+    <!--        android:fontFamily="@font/architects_daughter"-->
+    <!--        android:text="Name"-->
+    <!--        android:textSize="24sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/MyProfile"-->
+    <!--        app:layout_constraintVertical_bias="0.008" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/myProfileEmail"-->
+    <!--        android:layout_width="268dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_marginTop="113dp"-->
+    <!--        android:fontFamily="@font/architects_daughter"-->
+    <!--        android:text="Email"-->
+    <!--        android:textSize="24sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.496"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/myProfileName"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/myProfilePhone"-->
+    <!--        android:layout_width="266dp"-->
+    <!--        android:layout_height="37dp"-->
+    <!--        android:layout_marginTop="92dp"-->
+    <!--        android:fontFamily="@font/architects_daughter"-->
+    <!--        android:text="Phone"-->
+    <!--        android:textSize="24sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.498"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/myProfileEmail"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

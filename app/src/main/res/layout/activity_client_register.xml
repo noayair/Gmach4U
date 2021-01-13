@@ -6,21 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
-    tools:context="Activities.ClientRegister">    <TextView
+    android:background="@drawable/sky"
+    tools:context="Activities.ClientRegister">
+
+    <TextView
         android:id="@+id/SignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="233dp"
+        android:layout_height="77dp"
+        android:fontFamily="@font/montez_regular"
         android:gravity="center"
         android:text="Register"
-        android:fontFamily="@font/alfa_slab_one"
 
-        android:textSize="36sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="55sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.094" />
 
     <TextView
         android:id="@+id/userName"
@@ -28,14 +32,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Full Name:"
-        android:fontFamily="@font/alfa_slab_one"
 
+
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SignUp"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <EditText
         android:id="@+id/fullName"
@@ -44,6 +50,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +63,11 @@
         android:id="@+id/email"
         android:layout_width="68dp"
         android:layout_height="28dp"
-        android:fontFamily="@font/alfa_slab_one"
+
         android:gravity="center"
         android:text="Email:"
 
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +83,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textEmailAddress"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +98,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Password:"
-        android:fontFamily="@font/alfa_slab_one"
+
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +115,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPassword"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +130,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Phone Number:"
-        android:fontFamily="@font/alfa_slab_one"
+
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +146,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="phone"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,28 +159,30 @@
         android:id="@+id/submit"
         android:layout_width="136dp"
         android:layout_height="60dp"
-        android:fontFamily="@font/alfa_slab_one"
+
         android:text="Sign Up"
-        app:backgroundTint="#00FFFFFF"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
+        app:layout_constraintVertical_bias="0.703" />
 
     <Button
-        android:id="@+id/clientRegist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/LoginRegist"
+        android:layout_width="248dp"
+        android:layout_height="45dp"
         android:text="Have an Account? Sign In"
-        android:textSize="14sp"
-        app:backgroundTint="#00FFFFFF"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="12sp"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.726" />
+        app:layout_constraintVertical_bias="0.872" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

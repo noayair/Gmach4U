@@ -6,38 +6,119 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/city"
+    android:background="@drawable/sky"
     tools:context="Activities.MainActivity">
 
-    <TextView
-        android:id="@+id/Info"
-        android:layout_width="349dp"
-        android:layout_height="89dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:fontFamily="@font/alfa_slab_one"
-        android:text="WELCOME                          To llmach4U"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
 
-    <Button
-        android:id="@+id/btnLogout"
+    <TextView
+        android:id="@+id/mainActivity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:fontFamily="@font/montez_regular"
+        android:gravity="center"
+        android:text="What gmach do you want to find?"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <Spinner
+        android:id="@+id/mainActivity_category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="99dp"
+        android:layout_marginBottom="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+
+    <TextView
+        android:id="@+id/output_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainActivity_category_spinner"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UnknownId" />
+
+
+    <Spinner
+        android:id="@+id/mainActivity_location_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_category_spinner"
+        app:layout_constraintVertical_bias="0.041" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginBottom="36dp"
+        android:text="Search"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20sp"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_location_spinner"
+        app:layout_constraintVertical_bias="0.691" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="376dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="116dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Search by name"
+        android:textColor="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainActivity_title"
+        app:layout_constraintVertical_bias="0.073" />
+
+    <TextView
+        android:id="@+id/cName"
+        android:layout_width="319dp"
+        android:layout_height="78dp"
+        android:fontFamily="@font/montez_regular"
+        android:text="Hello"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="55sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096" />
+
+    <!--    <ListView-->
+    <!--        android:id="@+id/listView1"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        tools:layout_editor_absoluteX="7dp"-->
+    <!--        tools:layout_editor_absoluteY="133dp" >-->
+    <!--    </ListView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/sky"
     tools:context="Activities.GmachStockSupplier">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/MyProducts"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:fontFamily="@font/montez_regular"
+                android:text="My Products"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="55sp" />
+
+            <Button
+                android:id="@+id/AddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="+ Add"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="307dp"
+                android:layout_marginTop="11dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/ProductsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="605dp"
+                    android:paddingLeft="100px">
+
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

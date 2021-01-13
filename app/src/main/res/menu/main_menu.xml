@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <item-->
+<!--        android:id="@+id/action_search"-->
+<!--        android:title="Search"-->
+<!--        android:icon="@android:drawable/ic_menu_search"-->
+<!--        app:actionViewClass="android.widget.SearchView"-->
+<!--        app:showAsAction="ifRoom|collapseActionView">-->
+<!--    </item>-->
+
+    <item
+        android:id="@+id/Home"
+        android:title="Home"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/personal_profile"
+        android:title="My profile"
+        app:showAsAction="never">
+    </item>
+
+
+    <item
+        android:id="@+id/main_logoutMenu"
+        android:title="Logout"
+        app:showAsAction="never">
+        <!--        android:orderInCategory="100"-->
+    </item>
+</menu>

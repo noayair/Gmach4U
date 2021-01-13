@@ -1,9 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:background="@drawable/sky"
     tools:context="Activities.Chat">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="376dp"
+        android:layout_height="131dp"
+        android:fontFamily="@font/montez_regular"
+        android:gravity="center"
+        android:text="You can to send a message to one of your customers"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <EditText
+        android:id="@+id/etSubject"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginBottom="412dp"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:text="Subject"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/email_chat"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="130dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginBottom="140dp"
+        android:text="Send"
+        android:textColor="@color/cardview_dark_background"
+        app:backgroundTint="?android:attr/textColorSecondaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/message"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="300dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginBottom="240dp"
+        android:text="message"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etSubject"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/email_chat"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:text="Enter an email"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintVertical_bias="0.069" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

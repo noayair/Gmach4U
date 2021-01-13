@@ -1,9 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activities.SupplierRegister">
+    android:layout_gravity="center"
+    android:background="@drawable/sky"
+    tools:context="Activities.ClientRegister"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/SignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montez_regular"
+                android:gravity="center"
+                android:text="Register"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="55sp" />
+
+            <EditText
+                android:id="@+id/GmachNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Enter your gmach name"
+                android:textColor="@color/cardview_dark_background" />
+
+            <EditText
+                android:id="@+id/EmailInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:text="Enter Email"
+                android:textColor="@color/cardview_dark_background" />
+
+            <EditText
+                android:id="@+id/PasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="textPassword"
+                android:text="Enter Password"
+                android:textColor="@color/cardview_dark_background" />
+
+            <EditText
+                android:id="@+id/PhoneNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="phone"
+                android:text="Enter Phone Number"
+                android:textColor="@color/cardview_dark_background" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="10sp"
+                android:text="Choose the category of your gmach"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/CategoryInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="10sp"
+                android:text="Choose the location in the country"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/LocationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/AddressInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Enter Address"
+                android:textColor="@color/cardview_dark_background" />
+
+            <EditText
+                android:id="@+id/OpeningTimeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Enter opening time"
+                android:textColor="@color/cardview_dark_background" />
+
+            <ImageView
+                android:id="@+id/suppImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/uploadImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse"
+                app:icon="@android:drawable/ic_menu_upload" />
+
+            <Button
+                android:id="@+id/takePicture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take Picture"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse"
+                app:icon="@android:drawable/ic_menu_camera" />
+
+            <Button
+                android:id="@+id/signUpSupplier"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="sign_up"
+                android:textColor="@color/cardview_dark_background"
+                app:backgroundTint="?android:attr/textColorSecondaryInverse" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
